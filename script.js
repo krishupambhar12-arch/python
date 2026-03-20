@@ -14,7 +14,7 @@ function loadAndProcessData() {
     createSampleData();
     processData();
     
-    // Initialize charts for the default active tab
+    // Initialize charts for the default active tab (Distribution Analysis)
     const activeTab = document.querySelector('.tab-content.active');
     if (activeTab) {
         const tabId = activeTab.id;
@@ -87,6 +87,8 @@ function renderChartsForTab(tabName) {
         renderAllUnivariateCharts();
     } else if (tabName === 'bivariate') {
         renderAllBivariateCharts();
+    } else if (tabName === 'distribution') {
+        renderAllDistributionCharts();
     }
 }
 
@@ -204,6 +206,35 @@ function renderAllUnivariateCharts() {
         console.log('Graph 15 created');
     } catch (error) {
         console.error('Error creating Graph 15:', error);
+    }
+    
+    // Add Distribution Analysis graphs (30-33) to Univariate Analysis
+    try {
+        createRatingDistributionUni();
+        console.log('Graph 30 created');
+    } catch (error) {
+        console.error('Error creating Graph 30:', error);
+    }
+    
+    try {
+        createReviewsDistributionUni();
+        console.log('Graph 31 created');
+    } catch (error) {
+        console.error('Error creating Graph 31:', error);
+    }
+    
+    try {
+        createInstallsDistributionUni();
+        console.log('Graph 32 created');
+    } catch (error) {
+        console.error('Error creating Graph 32:', error);
+    }
+    
+    try {
+        createRatingBoxplotUni();
+        console.log('Graph 33 created');
+    } catch (error) {
+        console.error('Error creating Graph 33:', error);
     }
 }
 
@@ -1559,4 +1590,523 @@ function generateKDEData(data, min, max, points) {
     }
     
     return kdeData;
+}
+
+// ==================== DISTRIBUTION CHART RENDERING ====================
+function renderAllDistributionCharts() {
+    console.log('Rendering all distribution charts...');
+    
+    // Destroy existing charts
+    Object.values(charts).forEach(chart => {
+        if (chart) chart.destroy();
+    });
+    
+    // Create all distribution charts
+    try {
+        createRatingDistributionDist();
+        console.log('Graph 30 created');
+    } catch (error) {
+        console.error('Error creating Graph 30:', error);
+    }
+    
+    try {
+        createReviewsDistributionDist();
+        console.log('Graph 31 created');
+    } catch (error) {
+        console.error('Error creating Graph 31:', error);
+    }
+    
+    try {
+        createInstallsDistributionDist();
+        console.log('Graph 32 created');
+    } catch (error) {
+        console.error('Error creating Graph 32:', error);
+    }
+    
+    try {
+        createRatingBoxplotDist();
+        console.log('Graph 33 created');
+    } catch (error) {
+        console.error('Error creating Graph 33:', error);
+    }
+}
+
+// ==================== DISTRIBUTION CHART CREATION FUNCTIONS ====================
+
+// Graph 30: Rating Distribution
+function createRatingDistributionDist() {
+    const ctx = document.getElementById('rating-distribution-dist').getContext('2d');
+    const ratingData = playStoreData
+        .map(d => parseFloat(d.Rating))
+        .filter(rating => !isNaN(rating) && rating >= 1 && rating <= 5);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const binSize = 0.4; // 4/10
+    
+    ratingData.forEach(rating => {
+        const binIndex = Math.min(Math.floor((rating - 1) / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(ratingData, 1, 5, 50);
+    
+    charts['distribution-0'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => (i * 0.4 + 1.2).toFixed(1)),
+            datasets: [
+                {
+                    label: 'Rating Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(52, 152, 219, 0.6)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { min: 1, max: 5, title: { display: true, text: 'Rating' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 30: Rating Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 31: Reviews Distribution
+function createReviewsDistributionDist() {
+    const ctx = document.getElementById('reviews-distribution-dist').getContext('2d');
+    const reviewsData = playStoreData
+        .map(d => parseFloat(d.Reviews))
+        .filter(reviews => !isNaN(reviews) && reviews >= 0);
+    
+    const threshold = percentile(reviewsData, 90);
+    const filteredData = reviewsData.filter(r => r <= threshold);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const maxReview = Math.max(...filteredData);
+    const binSize = maxReview / 10;
+    
+    filteredData.forEach(review => {
+        const binIndex = Math.min(Math.floor(review / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(filteredData, 0, maxReview, 50);
+    
+    charts['distribution-1'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => Math.round(i * binSize)),
+            datasets: [
+                {
+                    label: 'Reviews Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(46, 204, 113, 0.6)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                    borderColor: 'rgba(155, 89, 182, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Reviews' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 31: Reviews Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 32: Installs Distribution
+function createInstallsDistributionDist() {
+    const ctx = document.getElementById('installs-distribution-dist').getContext('2d');
+    const installsData = playStoreData
+        .map(d => parseFloat(d.Installs))
+        .filter(installs => !isNaN(installs) && installs >= 0);
+    
+    const threshold = percentile(installsData, 95);
+    const filteredData = installsData.filter(i => i <= threshold);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const maxInstall = Math.max(...filteredData);
+    const binSize = maxInstall / 10;
+    
+    filteredData.forEach(install => {
+        const binIndex = Math.min(Math.floor(install / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(filteredData, 0, maxInstall, 50);
+    
+    charts['distribution-2'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => Math.round(i * binSize)),
+            datasets: [
+                {
+                    label: 'Installs Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(241, 196, 15, 0.6)',
+                    borderColor: 'rgba(241, 196, 15, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                    borderColor: 'rgba(231, 76, 60, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Installs' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 32: Installs Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 33: Rating Boxplot (Alternative using bar chart)
+function createRatingBoxplotDist() {
+    const ctx = document.getElementById('rating-boxplot-dist').getContext('2d');
+    const ratingData = playStoreData
+        .map(d => parseFloat(d.Rating))
+        .filter(rating => !isNaN(rating) && rating >= 1 && rating <= 5)
+        .sort((a, b) => a - b);
+    
+    // Calculate boxplot statistics
+    const q1 = percentile(ratingData, 25);
+    const median = percentile(ratingData, 50);
+    const q3 = percentile(ratingData, 75);
+    const min = Math.min(...ratingData);
+    const max = Math.max(...ratingData);
+    
+    // Create bar chart to simulate boxplot
+    charts['distribution-3'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Min', 'Q1', 'Median', 'Q3', 'Max'],
+            datasets: [{
+                label: 'Rating Distribution',
+                data: [min, q1, median, q3, max],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { min: 1, max: 5 }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 33: Rating Boxplot' }
+            }
+        }
+    });
+}
+
+// ==================== UNIVARIATE DISTRIBUTION CHART CREATION FUNCTIONS ====================
+
+// Graph 30: Rating Distribution (Univariate version)
+function createRatingDistributionUni() {
+    const ctx = document.getElementById('rating-distribution-uni').getContext('2d');
+    const ratingData = playStoreData
+        .map(d => parseFloat(d.Rating))
+        .filter(rating => !isNaN(rating) && rating >= 1 && rating <= 5);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const binSize = 0.4; // 4/10
+    
+    ratingData.forEach(rating => {
+        const binIndex = Math.min(Math.floor((rating - 1) / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(ratingData, 1, 5, 50);
+    
+    charts['univariate-30'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => (i * 0.4 + 1.2).toFixed(1)),
+            datasets: [
+                {
+                    label: 'Rating Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(52, 152, 219, 0.6)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { min: 1, max: 5, title: { display: true, text: 'Rating' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 30: Rating Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 31: Reviews Distribution (Univariate version)
+function createReviewsDistributionUni() {
+    const ctx = document.getElementById('reviews-distribution-uni').getContext('2d');
+    const reviewsData = playStoreData
+        .map(d => parseFloat(d.Reviews))
+        .filter(reviews => !isNaN(reviews) && reviews >= 0);
+    
+    const threshold = percentile(reviewsData, 90);
+    const filteredData = reviewsData.filter(r => r <= threshold);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const maxReview = Math.max(...filteredData);
+    const binSize = maxReview / 10;
+    
+    filteredData.forEach(review => {
+        const binIndex = Math.min(Math.floor(review / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(filteredData, 0, maxReview, 50);
+    
+    charts['univariate-31'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => Math.round(i * binSize)),
+            datasets: [
+                {
+                    label: 'Reviews Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(46, 204, 113, 0.6)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(155, 89, 182, 0.2)',
+                    borderColor: 'rgba(155, 89, 182, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Reviews' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 31: Reviews Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 32: Installs Distribution (Univariate version)
+function createInstallsDistributionUni() {
+    const ctx = document.getElementById('installs-distribution-uni').getContext('2d');
+    const installsData = playStoreData
+        .map(d => parseFloat(d.Installs))
+        .filter(installs => !isNaN(installs) && installs >= 0);
+    
+    const threshold = percentile(installsData, 95);
+    const filteredData = installsData.filter(i => i <= threshold);
+    
+    // Create histogram bins
+    const bins = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    const maxInstall = Math.max(...filteredData);
+    const binSize = maxInstall / 10;
+    
+    filteredData.forEach(install => {
+        const binIndex = Math.min(Math.floor(install / binSize), 9);
+        bins[binIndex]++;
+    });
+    
+    // Generate KDE-like data
+    const kdeData = generateKDEData(filteredData, 0, maxInstall, 50);
+    
+    charts['univariate-32'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Array.from({length: 10}, (_, i) => Math.round(i * binSize)),
+            datasets: [
+                {
+                    label: 'Installs Histogram',
+                    data: bins,
+                    backgroundColor: 'rgba(241, 196, 15, 0.6)',
+                    borderColor: 'rgba(241, 196, 15, 1)',
+                    borderWidth: 1,
+                    order: 2
+                },
+                {
+                    label: 'Density Curve',
+                    data: kdeData,
+                    type: 'line',
+                    backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                    borderColor: 'rgba(231, 76, 60, 1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4,
+                    order: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Installs' } }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 32: Installs Distribution' }
+            }
+        }
+    });
+}
+
+// Graph 33: Rating Boxplot (Univariate version)
+function createRatingBoxplotUni() {
+    const ctx = document.getElementById('rating-boxplot-uni').getContext('2d');
+    const ratingData = playStoreData
+        .map(d => parseFloat(d.Rating))
+        .filter(rating => !isNaN(rating) && rating >= 1 && rating <= 5)
+        .sort((a, b) => a - b);
+    
+    // Calculate boxplot statistics
+    const q1 = percentile(ratingData, 25);
+    const median = percentile(ratingData, 50);
+    const q3 = percentile(ratingData, 75);
+    const min = Math.min(...ratingData);
+    const max = Math.max(...ratingData);
+    
+    // Create bar chart to simulate boxplot
+    charts['univariate-33'] = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Min', 'Q1', 'Median', 'Q3', 'Max'],
+            datasets: [{
+                label: 'Rating Distribution',
+                data: [min, q1, median, q3, max],
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 99, 132, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: { min: 1, max: 5 }
+            },
+            plugins: {
+                title: { display: true, text: 'Graph 33: Rating Boxplot' }
+            }
+        }
+    });
 }

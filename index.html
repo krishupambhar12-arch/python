@@ -18,7 +18,7 @@
             <nav class="sidebar-nav">
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" data-tab="dashboard">
+                        <a href="#" class="nav-link" data-tab="dashboard">
                             <span class="nav-icon">📊</span>
                             Dashboard
                         </a>
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="distribution">
+                        <a href="#" class="nav-link active" data-tab="distribution">
                             <span class="nav-icon">📉</span>
                             Distribution Analysis
                         </a>
@@ -60,7 +60,7 @@
         <!-- Main Content -->
         <main class="main-content">
             <!-- Dashboard Tab -->
-            <div class="tab-content active" id="dashboard">
+            <div class="tab-content" id="dashboard">
                 <div class="content-header">
                     <h1>Play Store Insights Overview</h1>
                     <p>Comprehensive analysis of Google Play Store applications</p>
@@ -254,6 +254,42 @@
                         </div>
                         <p class="chart-description"><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To observe install data for a small sample.</p>
                     </div>
+                    
+                    <!-- Graph 30 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 30: Rating Distribution</h3>
+                            <canvas id="rating-distribution-uni"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 30 Rating Distribution:</strong> Histogram with density curve showing rating distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze rating distribution.</p>
+                    </div>
+                    
+                    <!-- Graph 31 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬📊 Graph 31: Reviews Distribution</h3>
+                            <canvas id="reviews-distribution-uni"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 31 Reviews Distribution:</strong> Shows how reviews are distributed.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze review distribution patterns.</p>
+                    </div>
+                    
+                    <!-- Graph 32 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️📊 Graph 32: Installs Distribution</h3>
+                            <canvas id="installs-distribution-uni"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 32 Installs Distribution:</strong> Shows install count distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze install distribution patterns.</p>
+                    </div>
+                    
+                    <!-- Graph 33 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📦📊 Graph 33: Rating Boxplot</h3>
+                            <canvas id="rating-boxplot-uni"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 33 Rating Boxplot:</strong> Displays rating spread and outliers.<br><strong>Function used:</strong> sns.boxplot() with outlier removal<br><strong>Purpose:</strong> To visualize rating variability and identify extreme values.</p>
+                    </div>
                 </div>
             </div>
 
@@ -398,23 +434,46 @@
             </div>
 
             <!-- Distribution Analysis Tab -->
-            <div class="tab-content" id="distribution">
+            <div class="tab-content active" id="distribution">
                 <div class="content-header">
                     <h1>Distribution Analysis</h1>
                     <p>Advanced distribution visualizations</p>
                 </div>
-                <div class="analysis-grid">
-                    <div class="chart-container">
-                        <h3>Rating Distribution with KDE</h3>
-                        <canvas id="rating-kde"></canvas>
+                <div class="chart-display">
+                    <!-- Graph 30 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 30: Rating Distribution</h3>
+                            <canvas id="rating-distribution-dist"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 30 Rating Distribution:</strong> Histogram with density curve showing rating distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze rating distribution.</p>
                     </div>
-                    <div class="chart-container">
-                        <h3>Reviews Distribution</h3>
-                        <canvas id="reviews-dist"></canvas>
+                    
+                    <!-- Graph 31 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬📊 Graph 31: Reviews Distribution</h3>
+                            <canvas id="reviews-distribution-dist"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 31 Reviews Distribution:</strong> Shows how reviews are distributed.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze review distribution patterns.</p>
                     </div>
-                    <div class="chart-container">
-                        <h3>Installs Distribution</h3>
-                        <canvas id="installs-dist"></canvas>
+                    
+                    <!-- Graph 32 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️📊 Graph 32: Installs Distribution</h3>
+                            <canvas id="installs-distribution-dist"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 32 Installs Distribution:</strong> Shows install count distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze install distribution patterns.</p>
+                    </div>
+                    
+                    <!-- Graph 33 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📦📊 Graph 33: Rating Boxplot</h3>
+                            <canvas id="rating-boxplot-dist"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 33 Rating Boxplot:</strong> Displays rating spread and outliers.<br><strong>Function used:</strong> sns.boxplot() with outlier removal<br><strong>Purpose:</strong> To visualize rating variability and identify extreme values.</p>
                     </div>
                 </div>
             </div>
