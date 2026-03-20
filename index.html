@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Play Store Analysis Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Left Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>Play Store Analytics</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul class="nav-menu">
+                    <li class="nav-item">
+                        <a href="#" class="nav-link active" data-tab="dashboard">
+                            <span class="nav-icon">📊</span>
+                            Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="univariate">
+                            <span class="nav-icon">📈</span>
+                            Univariate Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="bivariate">
+                            <span class="nav-icon">🔍</span>
+                            Bivariate Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="distribution">
+                            <span class="nav-icon">📉</span>
+                            Distribution Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="correlation">
+                            <span class="nav-icon">🔗</span>
+                             Correlation Analysis
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link" data-tab="ml">
+                            <span class="nav-icon">🤖</span>
+                             Machine Learning
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Tab -->
+            <div class="tab-content active" id="dashboard">
+                <div class="content-header">
+                    <h1>Play Store Insights Overview</h1>
+                    <p>Comprehensive analysis of Google Play Store applications</p>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📱</div>
+                        <div class="stat-info">
+                            <h3 id="total-apps">Loading...</h3>
+                            <p>Total Apps</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⭐</div>
+                        <div class="stat-info">
+                            <h3 id="avg-rating">Loading...</h3>
+                            <p>Average Rating</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">📊</div>
+                        <div class="stat-info">
+                            <h3 id="missing-values">Loading...</h3>
+                            <p>Missing Values</p>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-info">
+                            <h3 id="categories">Loading...</h3>
+                            <p>Categories</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Charts -->
+                <div class="charts-grid">
+                    <div class="chart-container">
+                        <h3>Rating Distribution</h3>
+                        <canvas id="rating-dist-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Category Distribution</h3>
+                        <canvas id="category-dist-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Univariate Analysis Tab -->
+            <div class="tab-content" id="univariate">
+                <div class="content-header">
+                    <h1>Univariate Analysis</h1>
+                    <p>Individual variable analysis and distributions</p>
+                </div>
+                <div class="chart-display">
+                    <!-- All Graphs Displayed at Once -->
+                    
+                    <!-- Graph 1 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 1: Rating Histogram</h3>
+                            <canvas id="rating-histogram"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 1 Rating Histogram:</strong> This graph shows the distribution of app ratings in the dataset. It helps understand how ratings are spread across applications such as how many apps have ratings near 4 or near 3.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand the frequency distribution of ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 2 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬 Graph 2: Reviews Histogram</h3>
+                            <canvas id="reviews-histogram"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 2 Reviews Histogram:</strong> This histogram shows how reviews are distributed among apps. It indicates how many apps have low reviews and how many have high reviews.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To analyze the distribution of user reviews.</p>
+                    </div>
+                    
+                    <!-- Graph 3 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️ Graph 3: Installs Histogram</h3>
+                            <canvas id="installs-histogram"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 3 Installs Histogram:</strong> This graph shows the distribution of the number of installs for apps.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand how many apps have low installs and how many are highly installed.</p>
+                    </div>
+                    
+                    <!-- Graph 4 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📦 Graph 4: Rating Boxplot</h3>
+                            <canvas id="rating-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 4 Rating Boxplot:</strong> This boxplot visualizes the spread of ratings and detects outliers.<br><strong>Function used:</strong> df['Rating'].plot.box() with outlier removal<br><strong>Purpose:</strong> To analyze rating variability and identify extreme values.</p>
+                    </div>
+                    
+                    <!-- Graph 5 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬📦 Graph 5: Reviews Boxplot</h3>
+                            <canvas id="reviews-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 5 Reviews Boxplot:</strong> This boxplot shows the distribution and outliers in the number of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.box() with outlier removal<br><strong>Purpose:</strong> To understand the range and extreme values in review counts.</p>
+                    </div>
+                    
+                    <!-- Graph 6 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️📦 Graph 6: Installs Boxplot</h3>
+                            <canvas id="installs-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 6 Installs Boxplot:</strong> This graph shows the spread and outliers in installs.<br><strong>Function used:</strong> df['Installs'].plot.box() with outlier removal<br><strong>Purpose:</strong> To observe variation in install counts.</p>
+                    </div>
+                    
+                    <!-- Graph 7 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📂📊 Graph 7: Category Bar Chart</h3>
+                            <canvas id="category-bar-chart"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 7 Category Bar Chart:</strong> This bar chart shows the top 10 most common app categories.<br><strong>Function used:</strong> df['Category'].value_counts().plot.bar()<br><strong>Purpose:</strong> To identify the most popular app categories.</p>
+                    </div>
+                    
+                    <!-- Graph 8 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🆓💰 Graph 8: Free vs Paid Pie Chart</h3>
+                            <canvas id="free-paid-pie-chart"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 8 Free vs Paid Pie Chart:</strong> This pie chart shows the percentage of free and paid apps.<br><strong>Function used:</strong> df['Type'].value_counts().plot.pie()<br><strong>Purpose:</strong> To understand the proportion of free versus paid applications.</p>
+                    </div>
+                    
+                    <!-- Graph 9 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>👥📊 Graph 9: Content Rating Bar Chart</h3>
+                            <canvas id="content-rating-bar-chart"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 9 Content Rating Bar Chart:</strong> This graph shows how many apps belong to each content rating category.<br><strong>Function used:</strong> df['Content Rating'].value_counts().plot.bar()<br><strong>Purpose:</strong> To analyze app distribution based on audience age group.</p>
+                    </div>
+                    
+                    <!-- Graph 10 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈⭐ Graph 10: Sorted Rating Line Graph</h3>
+                            <canvas id="sorted-rating-line"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 10 Sorted Rating Line Graph:</strong> This line graph shows ratings sorted from lowest to highest.<br><strong>Function used:</strong> plt.plot() with outlier removal<br><strong>Purpose:</strong> To visualize the overall rating trend.</p>
+                    </div>
+                    
+                    <!-- Graph 11 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊🌊 Graph 11: Rating KDE Plot</h3>
+                            <canvas id="rating-kde-plot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 11 Rating KDE Plot:</strong> This plot shows the probability density distribution of ratings.<br><strong>Function used:</strong> df['Rating'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To understand the smooth distribution of ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 12 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬🌊 Graph 12: Reviews KDE Plot</h3>
+                            <canvas id="reviews-kde-plot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 12 Reviews KDE Plot:</strong> This graph displays the density distribution of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To analyze review density patterns.</p>
+                    </div>
+                    
+                    <!-- Graph 13 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊📊 Graph 13: First 20 Ratings Bar Chart</h3>
+                            <canvas id="first-20-ratings"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 13 First 20 Ratings Bar Chart:</strong> This bar chart shows ratings for the first 20 apps in the dataset.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To visualize a small sample of ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 14 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬📊 Graph 14: First 20 Reviews Bar Chart</h3>
+                            <canvas id="first-20-reviews"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 14 First 20 Reviews Bar Chart:</strong> This graph displays the review counts of the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To view a small sample of review data.</p>
+                    </div>
+                    
+                    <!-- Graph 15 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️📊 Graph 15: First 20 Installs Bar Chart</h3>
+                            <canvas id="first-20-installs"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To observe install data for a small sample.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bivariate Analysis Tab -->
+            <div class="tab-content" id="bivariate">
+                <div class="content-header">
+                    <h1>Bivariate Analysis</h1>
+                    <p>Relationships between variables</p>
+                </div>
+                <div class="chart-display">
+                    <!-- Graph 16 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 16: Reviews vs Rating Scatter Plot</h3>
+                            <canvas id="reviews-rating-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 16 Reviews vs Rating Scatter Plot:</strong> This graph shows the relationship between reviews and ratings.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To see whether apps with more reviews tend to have higher ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 17 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 17: Installs vs Rating Scatter Plot</h3>
+                            <canvas id="installs-rating-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 17 Installs vs Rating Scatter Plot:</strong> This graph shows the relationship between installs and ratings.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To analyze whether highly installed apps have better ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 18 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 18: Installs vs Reviews Scatter Plot</h3>
+                            <canvas id="installs-reviews-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 18 Installs vs Reviews Scatter Plot:</strong> This plot shows the relationship between installs and reviews.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To check whether apps with more installs receive more reviews.</p>
+                    </div>
+                    
+                    <!-- Graph 19 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 19: Average Rating by Category</h3>
+                            <canvas id="avg-rating-category"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 19 Average Rating by Category:</strong> This bar chart displays the average rating for each app category.<br><strong>Function used:</strong> groupby().plot.bar()<br><strong>Purpose:</strong> To identify categories with higher average ratings.</p>
+                    </div>
+                    
+                    <!-- Graph 20 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📦 Graph 20: Rating by Type Boxplot</h3>
+                            <canvas id="rating-type-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 20 Rating by Type Boxplot:</strong> This compares ratings between free and paid apps.<br><strong>Function used:</strong> df.boxplot()<br><strong>Purpose:</strong> To analyze rating differences between free and paid applications.</p>
+                    </div>
+                    
+                    <!-- Graph 21 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>💬📦 Graph 21: Reviews by Type Boxplot</h3>
+                            <canvas id="reviews-type-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 21 Reviews by Type Boxplot:</strong> This graph compares review counts between free and paid apps.<br><strong>Function used:</strong> df.boxplot()<br><strong>Purpose:</strong> To study user engagement differences.</p>
+                    </div>
+                    
+                    <!-- Graph 22 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>⬇️📦 Graph 22: Installs by Type Boxplot</h3>
+                            <canvas id="installs-type-boxplot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 22 Installs by Type Boxplot:</strong> This graph compares install numbers between free and paid apps.<br><strong>Function used:</strong> df.boxplot()<br><strong>Purpose:</strong> To analyze download patterns.</p>
+                    </div>
+                    
+                    <!-- Graph 23 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🔷 Graph 23: Hexbin Plot</h3>
+                            <canvas id="hexbin-plot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 23 Hexbin Plot:</strong> This plot shows density between installs and reviews.<br><strong>Function used:</strong> plt.hexbin() with outlier removal<br><strong>Purpose:</strong> To visualize data concentration in large datasets.</p>
+                    </div>
+                    
+                    <!-- Graph 24 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 24: 2D Histogram</h3>
+                            <canvas id="2d-histogram"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 24 2D Histogram:</strong> This shows the combined distribution of reviews and ratings.<br><strong>Function used:</strong> plt.hist2d() with outlier removal<br><strong>Purpose:</strong> To observe density patterns between two variables.</p>
+                    </div>
+                    
+                    <!-- Graph 25 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🌊 Graph 25: Seaborn Scatter Plot</h3>
+                            <canvas id="seaborn-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 25 Seaborn Scatter Plot:</strong> Advanced scatter visualization for reviews vs rating.<br><strong>Function used:</strong> sns.scatterplot() with outlier removal<br><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                    </div>
+                    
+                    <!-- Graph 26 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 26: Installs vs Rating Scatter</h3>
+                            <canvas id="installs-rating-scatter-2"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 26 Installs vs Rating Scatter:</strong> Shows the relationship between installs and ratings.<br><strong>Function used:</strong> sns.scatterplot() with outlier removal<br><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                    </div>
+                    
+                    <!-- Graph 27 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 27: Installs vs Reviews Scatter</h3>
+                            <canvas id="installs-reviews-scatter-2"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 27 Installs vs Reviews Scatter:</strong> Shows the relationship between installs and reviews.<br><strong>Function used:</strong> sns.scatterplot() with outlier removal<br><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                    </div>
+                    
+                    <!-- Graph 28 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 28: Regression Plot Reviews vs Rating</h3>
+                            <canvas id="regression-reviews-rating"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 28 Regression Plot Reviews vs Rating:</strong> This plot shows the trend line between reviews and ratings.<br><strong>Function used:</strong> sns.regplot() with outlier removal<br><strong>Purpose:</strong> To identify linear relationships.</p>
+                    </div>
+                    
+                    <!-- Graph 29 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 29: Regression Plot Installs vs Rating</h3>
+                            <canvas id="regression-installs-rating"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 29 Regression Plot Installs vs Rating:</strong> Shows the trend between installs and ratings.<br><strong>Function used:</strong> sns.regplot() with outlier removal<br><strong>Purpose:</strong> To identify linear relationships.</p>
+                    </div>
+                </div>
+            </div>
+                        <h3>Average Rating by Category</h3>
+                        <canvas id="avg-rating-category"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Distribution Analysis Tab -->
+            <div class="tab-content" id="distribution">
+                <div class="content-header">
+                    <h1>Distribution Analysis</h1>
+                    <p>Advanced distribution visualizations</p>
+                </div>
+                <div class="analysis-grid">
+                    <div class="chart-container">
+                        <h3>Rating Distribution with KDE</h3>
+                        <canvas id="rating-kde"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Reviews Distribution</h3>
+                        <canvas id="reviews-dist"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Installs Distribution</h3>
+                        <canvas id="installs-dist"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Correlation Analysis Tab -->
+            <div class="tab-content" id="correlation">
+                <div class="content-header">
+                    <h1>Correlation Analysis</h1>
+                    <p>Relationships and correlations between variables</p>
+                </div>
+                <div class="analysis-grid">
+                    <div class="chart-container full-width">
+                        <h3>Correlation Heatmap</h3>
+                        <canvas id="correlation-heatmap"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Pair Plot</h3>
+                        <canvas id="pair-plot"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Machine Learning Tab -->
+            <div class="tab-content" id="ml">
+                <div class="content-header">
+                    <h1>Machine Learning</h1>
+                    <p>Predictive modeling and clustering</p>
+                </div>
+                <div class="analysis-grid">
+                    <div class="chart-container">
+                        <h3>Linear Regression: Reviews vs Rating</h3>
+                        <canvas id="regression-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>K-Means Clustering</h3>
+                        <canvas id="clustering-chart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Prediction Distribution</h3>
+                        <canvas id="prediction-dist"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <h3>Model Performance</h3>
+                        <div class="model-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">R² Score:</span>
+                                <span class="stat-value" id="r2-score">Loading...</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Accuracy:</span>
+                                <span class="stat-value" id="accuracy">Loading...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="tab_navigation.js"></script>
+</body>
+</html>
