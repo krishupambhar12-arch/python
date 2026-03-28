@@ -5,7 +5,470 @@ let charts = {};
 // Initialize dashboard
 document.addEventListener('DOMContentLoaded', function() {
     loadAndProcessData();
+    updateUnivariateButtons();
+    updateBivariateButtons();
+    updateDistributionButtons();
+    updateCorrelationButtons();
+    updateMLButtons();
 });
+
+// ==================== UNIVARIATE NAVIGATION ====================
+
+// Univariate Analysis Navigation
+let currentUnivariateGraph = 1;
+const totalUnivariateGraphs = 15;
+
+function navigateUnivariateGraph(direction) {
+    // Hide ALL univariate graphs first
+    for (let i = 1; i <= totalUnivariateGraphs; i++) {
+        const element = document.getElementById(`univariate-graph-${i}`);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+    
+    // Update current graph index
+    if (direction === 'next' && currentUnivariateGraph < totalUnivariateGraphs) {
+        currentUnivariateGraph++;
+    } else if (direction === 'prev' && currentUnivariateGraph > 1) {
+        currentUnivariateGraph--;
+    }
+    
+    // Show only the current graph
+    document.getElementById(`univariate-graph-${currentUnivariateGraph}`).style.display = 'block';
+    
+    // Update button states
+    updateUnivariateButtons();
+    
+    // Create the chart if it doesn't exist
+    createUnivariateChart(currentUnivariateGraph);
+}
+
+function updateUnivariateButtons() {
+    const prevBtn = document.getElementById('univariate-prev-btn');
+    const nextBtn = document.getElementById('univariate-next-btn');
+    
+    prevBtn.disabled = currentUnivariateGraph === 1;
+    nextBtn.disabled = currentUnivariateGraph === totalUnivariateGraphs;
+}
+
+function createUnivariateChart(graphNumber) {
+    // Check if chart already exists
+    const chartId = getChartIdForGraph(graphNumber);
+    if (charts[chartId]) {
+        return; // Chart already exists
+    }
+    
+    // Create the specific chart based on graph number
+    switch(graphNumber) {
+        case 1:
+            createRatingHistogram();
+            break;
+        case 2:
+            createReviewsHistogram();
+            break;
+        case 3:
+            createInstallsHistogram();
+            break;
+        case 4:
+            createRatingBoxPlot();
+            break;
+        case 5:
+            createReviewsBoxPlot();
+            break;
+        case 6:
+            createInstallsBoxPlot();
+            break;
+        case 7:
+            createCategoryBarChart();
+            break;
+        case 8:
+            createFreePaidPieChart();
+            break;
+        case 9:
+            createContentRatingBarChart();
+            break;
+        case 10:
+            createSortedRatingLine();
+            break;
+        case 11:
+            createRatingKDEPlot();
+            break;
+        case 12:
+            createReviewsKDEPlot();
+            break;
+        case 13:
+            createFirst20Ratings();
+            break;
+        case 14:
+            createFirst20ReviewsBarChart();
+            break;
+        case 15:
+            createFirst20InstallsBarChart();
+            break;
+    }
+}
+
+function getChartIdForGraph(graphNumber) {
+    const chartMap = {
+        1: 'rating-histogram',
+        2: 'reviews-histogram',
+        3: 'installs-histogram',
+        4: 'rating-boxplot',
+        5: 'reviews-boxplot',
+        6: 'installs-boxplot',
+        7: 'category-bar-chart',
+        8: 'free-paid-pie-chart',
+        9: 'content-rating-bar-chart',
+        10: 'sorted-rating-line',
+        11: 'rating-kde-plot',
+        12: 'reviews-kde-plot',
+        13: 'first-20-ratings',
+        14: 'first-20-reviews',
+        15: 'first-20-installs'
+    };
+    return chartMap[graphNumber];
+}
+
+// ==================== BIVARIATE NAVIGATION ====================
+
+// Bivariate Analysis Navigation
+let currentBivariateGraph = 16;
+const totalBivariateGraphs = 29;
+
+function navigateBivariateGraph(direction) {
+    // Hide ALL bivariate graphs first
+    for (let i = 16; i <= totalBivariateGraphs; i++) {
+        const element = document.getElementById(`bivariate-graph-${i}`);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+    
+    // Update current graph index
+    if (direction === 'next' && currentBivariateGraph < totalBivariateGraphs) {
+        currentBivariateGraph++;
+    } else if (direction === 'prev' && currentBivariateGraph > 16) {
+        currentBivariateGraph--;
+    }
+    
+    // Show only the current graph
+    document.getElementById(`bivariate-graph-${currentBivariateGraph}`).style.display = 'block';
+    
+    // Update button states
+    updateBivariateButtons();
+    
+    // Create the chart if it doesn't exist
+    createBivariateChart(currentBivariateGraph);
+}
+
+function updateBivariateButtons() {
+    const prevBtn = document.getElementById('bivariate-prev-btn');
+    const nextBtn = document.getElementById('bivariate-next-btn');
+    
+    prevBtn.disabled = currentBivariateGraph === 16;
+    nextBtn.disabled = currentBivariateGraph === totalBivariateGraphs;
+}
+
+function createBivariateChart(graphNumber) {
+    // Check if chart already exists
+    const chartId = getBivariateChartId(graphNumber);
+    if (charts[chartId]) {
+        return; // Chart already exists
+    }
+    
+    // Create the specific chart based on graph number
+    switch(graphNumber) {
+        case 16:
+            createReviewsRatingScatter();
+            break;
+        case 17:
+            createInstallsRatingScatter();
+            break;
+        case 18:
+            createInstallsReviewsScatter();
+            break;
+        case 19:
+            createAvgRatingCategory();
+            break;
+        case 20:
+            createRatingTypeBoxplot();
+            break;
+        case 21:
+            createReviewsTypeBoxplot();
+            break;
+        case 22:
+            createInstallsTypeBoxplot();
+            break;
+        case 23:
+            createHexbinPlot();
+            break;
+        case 24:
+            create2DHistogram();
+            break;
+        case 25:
+            createSeabornScatter();
+            break;
+        case 26:
+            createInstallsRatingScatter2();
+            break;
+        case 27:
+            createInstallsReviewsScatter2();
+            break;
+        case 28:
+            createRegressionReviewsRating();
+            break;
+        case 29:
+            createRegressionInstallsRating();
+            break;
+    }
+}
+
+function getBivariateChartId(graphNumber) {
+    const chartMap = {
+        16: 'reviews-rating-scatter',
+        17: 'installs-rating-scatter',
+        18: 'installs-reviews-scatter',
+        19: 'avg-rating-category',
+        20: 'rating-type-boxplot',
+        21: 'reviews-type-boxplot',
+        22: 'installs-type-boxplot',
+        23: 'hexbin-plot',
+        24: '2d-histogram',
+        25: 'seaborn-scatter',
+        26: 'installs-rating-scatter-2',
+        27: 'installs-reviews-scatter-2',
+        28: 'regression-reviews-rating',
+        29: 'regression-installs-rating'
+    };
+    return chartMap[graphNumber];
+}
+
+// ==================== DISTRIBUTION NAVIGATION ====================
+
+// Distribution Analysis Navigation
+let currentDistributionGraph = 30;
+const totalDistributionGraphs = 33;
+
+function navigateDistributionGraph(direction) {
+    // Hide ALL distribution graphs first
+    for (let i = 30; i <= totalDistributionGraphs; i++) {
+        const element = document.getElementById(`distribution-graph-${i}`);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+    
+    // Update current graph index
+    if (direction === 'next' && currentDistributionGraph < totalDistributionGraphs) {
+        currentDistributionGraph++;
+    } else if (direction === 'prev' && currentDistributionGraph > 30) {
+        currentDistributionGraph--;
+    }
+    
+    // Show only the current graph
+    document.getElementById(`distribution-graph-${currentDistributionGraph}`).style.display = 'block';
+    
+    // Update button states
+    updateDistributionButtons();
+    
+    // Create the chart if it doesn't exist
+    createDistributionChart(currentDistributionGraph);
+}
+
+function updateDistributionButtons() {
+    const prevBtn = document.getElementById('distribution-prev-btn');
+    const nextBtn = document.getElementById('distribution-next-btn');
+    
+    prevBtn.disabled = currentDistributionGraph === 30;
+    nextBtn.disabled = currentDistributionGraph === totalDistributionGraphs;
+}
+
+function createDistributionChart(graphNumber) {
+    // Check if chart already exists
+    const chartId = getDistributionChartId(graphNumber);
+    if (charts[chartId]) {
+        return; // Chart already exists
+    }
+    
+    // Create the specific chart based on graph number
+    switch(graphNumber) {
+        case 30:
+            createRatingDistributionDist();
+            break;
+        case 31:
+            createReviewsDistributionDist();
+            break;
+        case 32:
+            createInstallsDistributionDist();
+            break;
+        case 33:
+            createRatingBoxplotDist();
+            break;
+    }
+}
+
+function getDistributionChartId(graphNumber) {
+    const chartMap = {
+        30: 'rating-distribution-dist',
+        31: 'reviews-distribution-dist',
+        32: 'installs-distribution-dist',
+        33: 'rating-boxplot-dist'
+    };
+    return chartMap[graphNumber];
+}
+
+// ==================== CORRELATION NAVIGATION ====================
+
+// Correlation Analysis Navigation
+let currentCorrelationGraph = 34;
+const totalCorrelationGraphs = 36;
+
+function navigateCorrelationGraph(direction) {
+    // Hide ALL correlation graphs first
+    for (let i = 34; i <= totalCorrelationGraphs; i++) {
+        const element = document.getElementById(`correlation-graph-${i}`);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+    
+    // Update current graph index
+    if (direction === 'next' && currentCorrelationGraph < totalCorrelationGraphs) {
+        currentCorrelationGraph++;
+    } else if (direction === 'prev' && currentCorrelationGraph > 34) {
+        currentCorrelationGraph--;
+    }
+    
+    // Show only the current graph
+    document.getElementById(`correlation-graph-${currentCorrelationGraph}`).style.display = 'block';
+    
+    // Update button states
+    updateCorrelationButtons();
+    
+    // Create the chart if it doesn't exist
+    createCorrelationChart(currentCorrelationGraph);
+}
+
+function updateCorrelationButtons() {
+    const prevBtn = document.getElementById('correlation-prev-btn');
+    const nextBtn = document.getElementById('correlation-next-btn');
+    
+    prevBtn.disabled = currentCorrelationGraph === 34;
+    nextBtn.disabled = currentCorrelationGraph === totalCorrelationGraphs;
+}
+
+function createCorrelationChart(graphNumber) {
+    // Check if chart already exists
+    const chartId = getCorrelationChartId(graphNumber);
+    if (charts[chartId]) {
+        return; // Chart already exists
+    }
+    
+    // Create the specific chart based on graph number
+    switch(graphNumber) {
+        case 34:
+            createCorrelationHeatmap();
+            break;
+        case 35:
+            createPairPlot();
+            break;
+        case 36:
+            createCorrelationMatrix();
+            break;
+    }
+}
+
+function getCorrelationChartId(graphNumber) {
+    const chartMap = {
+        34: 'correlation-0',
+        35: 'correlation-1',
+        36: 'correlation-2'
+    };
+    return chartMap[graphNumber];
+}
+
+// ==================== MACHINE LEARNING NAVIGATION ====================
+
+// Machine Learning Navigation
+let currentMLGraph = 37;
+const totalMLGraphs = 42;
+
+function navigateMLGraph(direction) {
+    // Hide ALL ML graphs first
+    for (let i = 37; i <= totalMLGraphs; i++) {
+        const element = document.getElementById(`ml-graph-${i}`);
+        if (element) {
+            element.style.display = 'none';
+        }
+    }
+    
+    // Update current graph index
+    if (direction === 'next' && currentMLGraph < totalMLGraphs) {
+        currentMLGraph++;
+    } else if (direction === 'prev' && currentMLGraph > 37) {
+        currentMLGraph--;
+    }
+    
+    // Show only the current graph
+    document.getElementById(`ml-graph-${currentMLGraph}`).style.display = 'block';
+    
+    // Update button states
+    updateMLButtons();
+    
+    // Create the chart if it doesn't exist
+    createMLChart(currentMLGraph);
+}
+
+function updateMLButtons() {
+    const prevBtn = document.getElementById('ml-prev-btn');
+    const nextBtn = document.getElementById('ml-next-btn');
+    
+    prevBtn.disabled = currentMLGraph === 37;
+    nextBtn.disabled = currentMLGraph === totalMLGraphs;
+}
+
+function createMLChart(graphNumber) {
+    // Check if chart already exists
+    const chartId = getMLChartId(graphNumber);
+    if (charts[chartId]) {
+        return; // Chart already exists
+    }
+    
+    // Create the specific chart based on graph number
+    switch(graphNumber) {
+        case 37:
+            createLinearRegressionChart();
+            break;
+        case 38:
+            createPredictionScatterChart();
+            break;
+        case 39:
+            createActualScatterChart();
+            break;
+        case 40:
+            createKMeansClusteringChart();
+            break;
+        case 41:
+            createPredictionDistributionChart();
+            break;
+        case 42:
+            createPredictionTrendChart();
+            break;
+    }
+}
+
+function getMLChartId(graphNumber) {
+    const chartMap = {
+        37: 'ml-0',
+        38: 'ml-1',
+        39: 'ml-2',
+        40: 'ml-3',
+        41: 'ml-4',
+        42: 'ml-5'
+    };
+    return chartMap[graphNumber];
+}
 
 // Load and process data
 function loadAndProcessData() {
