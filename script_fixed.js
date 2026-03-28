@@ -1,4 +1,4 @@
-﻿// Global variables
+// Global variables
 let playStoreData = [];
 let charts = {};
 
@@ -210,6 +210,35 @@ function renderAllUnivariateCharts() {
         console.log('Graph 15 created');
     } catch (error) {
         console.error('Error creating Graph 15:', error);
+    }
+    
+    // Add Distribution Analysis graphs (30-33) to Univariate Analysis
+    try {
+        createRatingDistributionUni();
+        console.log('Graph 30 created');
+    } catch (error) {
+        console.error('Error creating Graph 30:', error);
+    }
+    
+    try {
+        createReviewsDistributionUni();
+        console.log('Graph 31 created');
+    } catch (error) {
+        console.error('Error creating Graph 31:', error);
+    }
+    
+    try {
+        createInstallsDistributionUni();
+        console.log('Graph 32 created');
+    } catch (error) {
+        console.error('Error creating Graph 32:', error);
+    }
+    
+    try {
+        createRatingBoxplotUni();
+        console.log('Graph 33 created');
+    } catch (error) {
+        console.error('Error creating Graph 33:', error);
     }
 }
 
@@ -2051,29 +2080,24 @@ function createCorrelationHeatmap() {
     }
     
     charts['correlation-0'] = new Chart(ctx, {
-        type: 'bubble',
+        type: 'scatter',
         data: {
             datasets: [{
-                label: 'Correlation Matrix',
-                data: heatmapData.map(d => ({
-                    x: d.x,
-                    y: d.y,
-                    r: Math.abs(d.v) * 20 + 10, // Size based on correlation value
-                    v: d.v
-                })),
+                label: 'Correlation',
+                data: heatmapData,
                 backgroundColor: function(context) {
                     const value = context.raw.v;
                     const alpha = Math.abs(value);
                     if (value > 0) {
                         return `rgba(46, 204, 113, ${alpha})`; // Green for positive
-                    } else if (value < 0) {
-                        return `rgba(231, 76, 60, ${alpha})`; // Red for negative
                     } else {
-                        return `rgba(149, 165, 166, 0.5)`; // Gray for zero
+                        return `rgba(231, 76, 60, ${alpha})`; // Red for negative
                     }
                 },
                 borderColor: 'rgba(0, 0, 0, 0.3)',
-                borderWidth: 1
+                borderWidth: 1,
+                pointRadius: 30,
+                pointHoverRadius: 35
             }]
         },
         options: {
@@ -2082,6 +2106,7 @@ function createCorrelationHeatmap() {
             scales: {
                 x: {
                     type: 'linear',
+                    position: 'bottom',
                     min: -0.5,
                     max: 2.5,
                     ticks: {
@@ -2089,14 +2114,9 @@ function createCorrelationHeatmap() {
                         callback: function(value) {
                             return labels[value] || '';
                         }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Variables'
                     }
                 },
                 y: {
-                    type: 'linear',
                     min: -0.5,
                     max: 2.5,
                     ticks: {
@@ -2104,17 +2124,10 @@ function createCorrelationHeatmap() {
                         callback: function(value) {
                             return labels[value] || '';
                         }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Variables'
                     }
                 }
             },
             plugins: {
-                legend: {
-                    display: false
-                },
                 title: {
                     display: true,
                     text: 'Graph 34: Correlation Heatmap'
@@ -2122,12 +2135,15 @@ function createCorrelationHeatmap() {
                 tooltip: {
                     callbacks: {
                         label: function(context) {
+                            const i = context.raw.y;
+                            const j = context.raw.x;
                             const value = context.raw.v;
-                            const xLabel = labels[context.raw.x];
-                            const yLabel = labels[context.raw.y];
-                            return `${xLabel} vs ${yLabel}: ${value.toFixed(3)}`;
+                            return `${labels[i]} vs ${labels[j]}: ${value.toFixed(3)}`;
                         }
                     }
+                },
+                legend: {
+                    display: false
                 }
             }
         }
@@ -2235,41 +2251,33 @@ function createCorrelationMatrix() {
     
     const labels = ['Rating', 'Reviews', 'Installs'];
     
-    // Create matrix visualization similar to plt.imshow
+    // Create matrix visualization with bar chart
     const matrixData = [];
+    const matrixLabels = [];
+    
     for (let i = 0; i < 3; i++) {
         for (let j = 0; j < 3; j++) {
-            matrixData.push({
-                x: j,
-                y: 2 - i, // Flip y-axis to match matrix orientation
-                v: correlationMatrix[i][j]
-            });
+            matrixData.push(correlationMatrix[i][j]);
+            matrixLabels.push(`${labels[i]}-${labels[j]}`);
         }
     }
     
     charts['correlation-2'] = new Chart(ctx, {
-        type: 'bubble',
+        type: 'bar',
         data: {
+            labels: matrixLabels,
             datasets: [{
-                label: 'Correlation Matrix',
-                data: matrixData.map(d => ({
-                    x: d.x,
-                    y: d.y,
-                    r: Math.abs(d.v) * 20 + 10, // Size based on correlation value
-                    v: d.v
-                })),
+                label: 'Correlation Value',
+                data: matrixData,
                 backgroundColor: function(context) {
-                    const value = context.raw.v;
-                    const alpha = Math.abs(value);
+                    const value = context.raw;
                     if (value > 0) {
-                        return `rgba(46, 204, 113, ${alpha})`; // Green for positive
-                    } else if (value < 0) {
-                        return `rgba(231, 76, 60, ${alpha})`; // Red for negative
+                        return `rgba(46, 204, 113, ${Math.abs(value)})`; // Green for positive
                     } else {
-                        return `rgba(149, 165, 166, 0.5)`; // Gray for zero
+                        return `rgba(231, 76, 60, ${Math.abs(value)})`; // Red for negative
                     }
                 },
-                borderColor: 'rgba(0, 0, 0, 0.3)',
+                borderColor: 'rgba(0, 0, 0, 0.5)',
                 borderWidth: 1
             }]
         },
@@ -2277,52 +2285,31 @@ function createCorrelationMatrix() {
             responsive: true,
             maintainAspectRatio: false,
             scales: {
-                x: {
-                    type: 'linear',
-                    min: -0.5,
-                    max: 2.5,
-                    ticks: {
-                        stepSize: 1,
-                        callback: function(value) {
-                            return labels[value] || '';
-                        }
-                    },
+                y: {
+                    beginAtZero: true,
+                    min: -1,
+                    max: 1,
                     title: {
                         display: true,
-                        text: 'Variables'
+                        text: 'Correlation Coefficient'
                     }
                 },
-                y: {
-                    type: 'linear',
-                    min: -0.5,
-                    max: 2.5,
+                x: {
                     ticks: {
-                        stepSize: 1,
-                        callback: function(value) {
-                            return labels[2 - value] || ''; // Flip y-axis
-                        }
-                    },
-                    title: {
-                        display: true,
-                        text: 'Variables'
+                        maxRotation: 45,
+                        minRotation: 45
                     }
                 }
             },
             plugins: {
-                legend: {
-                    display: false
-                },
                 title: {
                     display: true,
-                    text: 'Graph 36: Correlation Matrix Image'
+                    text: 'Graph 36: Correlation Matrix'
                 },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            const value = context.raw.v;
-                            const xLabel = labels[context.raw.x];
-                            const yLabel = labels[2 - context.raw.y]; // Flip y-axis
-                            return `${xLabel} vs ${yLabel}: ${value.toFixed(3)}`;
+                            return `Correlation: ${context.raw.toFixed(3)}`;
                         }
                     }
                 }
@@ -2345,50 +2332,36 @@ function renderAllMachineLearningCharts() {
     // Create machine learning charts
     try {
         createLinearRegressionChart();
-        console.log('Graph 37 created');
+        console.log('ML Chart 1 created');
     } catch (error) {
-        console.error('Error creating Graph 37:', error);
-    }
-    
-    try {
-        createPredictionScatterChart();
-        console.log('Graph 38 created');
-    } catch (error) {
-        console.error('Error creating Graph 38:', error);
-    }
-    
-    try {
-        createActualScatterChart();
-        console.log('Graph 39 created');
-    } catch (error) {
-        console.error('Error creating Graph 39:', error);
+        console.error('Error creating ML Chart 1:', error);
     }
     
     try {
         createKMeansClusteringChart();
-        console.log('Graph 40 created');
+        console.log('ML Chart 2 created');
     } catch (error) {
-        console.error('Error creating Graph 40:', error);
+        console.error('Error creating ML Chart 2:', error);
     }
     
     try {
-        createPredictionDistributionChart();
-        console.log('Graph 41 created');
+        createPredictionDistribution();
+        console.log('ML Chart 3 created');
     } catch (error) {
-        console.error('Error creating Graph 41:', error);
+        console.error('Error creating ML Chart 3:', error);
     }
     
     try {
-        createPredictionTrendChart();
-        console.log('Graph 42 created');
+        createPredictionTrend();
+        console.log('ML Chart 4 created');
     } catch (error) {
-        console.error('Error creating Graph 42:', error);
+        console.error('Error creating ML Chart 4:', error);
     }
 }
 
 // ML Chart 1: Linear Regression
 function createLinearRegressionChart() {
-    const ctx = document.getElementById('linear-regression').getContext('2d');
+    const ctx = document.getElementById('regression-chart').getContext('2d');
     
     // Simple linear regression simulation
     const data = playStoreData.slice(0, 100);
@@ -2460,7 +2433,7 @@ function createLinearRegressionChart() {
 
 // ML Chart 2: K-Means Clustering
 function createKMeansClusteringChart() {
-    const ctx = document.getElementById('kmeans-clustering').getContext('2d');
+    const ctx = document.getElementById('clustering-chart').getContext('2d');
     
     // Simple k-means clustering simulation
     const data = playStoreData.slice(0, 100);
@@ -2607,168 +2580,6 @@ function createPredictionTrend() {
             },
             plugins: {
                 title: { display: true, text: 'Prediction Trend' }
-            }
-        }
-    });
-}
-
-// Graph 38: Prediction Scatter Plot
-function createPredictionScatterChart() {
-    const ctx = document.getElementById('prediction-scatter').getContext('2d');
-    
-    // Simulate prediction data
-    const predictions = [];
-    for (let i = 0; i < 50; i++) {
-        predictions.push(2.5 + Math.random() * 2);
-    }
-    
-    charts['ml-1'] = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Predicted Ratings',
-                data: predictions.map((pred, i) => ({x: i, y: pred})),
-                backgroundColor: 'rgba(231, 76, 60, 0.6)',
-                borderColor: 'rgba(231, 76, 60, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: { display: true, text: 'Sample Index' }
-                },
-                y: {
-                    min: 1,
-                    max: 5,
-                    title: { display: true, text: 'Predicted Rating' }
-                }
-            },
-            plugins: {
-                title: { display: true, text: 'Graph 38: Prediction Scatter Plot' }
-            }
-        }
-    });
-}
-
-// Graph 39: Actual Values Scatter Plot
-function createActualScatterChart() {
-    const ctx = document.getElementById('actual-scatter').getContext('2d');
-    
-    // Sample actual data
-    const actualData = playStoreData.slice(0, 50).map(d => parseFloat(d.Rating)).filter(r => !isNaN(r));
-    
-    charts['ml-2'] = new Chart(ctx, {
-        type: 'scatter',
-        data: {
-            datasets: [{
-                label: 'Actual Ratings',
-                data: actualData.map((rating, i) => ({x: i, y: rating})),
-                backgroundColor: 'rgba(52, 152, 219, 0.6)',
-                borderColor: 'rgba(52, 152, 219, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                x: {
-                    title: { display: true, text: 'Sample Index' }
-                },
-                y: {
-                    min: 1,
-                    max: 5,
-                    title: { display: true, text: 'Actual Rating' }
-                }
-            },
-            plugins: {
-                title: { display: true, text: 'Graph 39: Actual Values Scatter Plot' }
-            }
-        }
-    });
-}
-
-// Graph 41: Prediction Distribution
-function createPredictionDistributionChart() {
-    const ctx = document.getElementById('prediction-distribution').getContext('2d');
-    
-    // Simulate prediction distribution
-    const predictions = [];
-    for (let i = 0; i < 100; i++) {
-        predictions.push(2.5 + Math.random() * 2);
-    }
-
-    const bins = [0, 0, 0, 0, 0];
-    predictions.forEach(pred => {
-        const binIndex = Math.min(Math.floor((pred - 2.5) / 0.4), 4);
-        bins[Math.max(0, binIndex)]++;
-    });
-
-    charts['ml-4'] = new Chart(ctx, {
-        type: 'bar',
-        data: {
-            labels: ['2.5-2.9', '2.9-3.3', '3.3-3.7', '3.7-4.1', '4.1-4.5'],
-            datasets: [{
-                label: 'Prediction Distribution',
-                data: bins,
-                backgroundColor: 'rgba(155, 89, 182, 0.6)',
-                borderColor: 'rgba(155, 89, 182, 1)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: { beginAtZero: true },
-                x: { title: { display: true, text: 'Predicted Rating' } }
-            },
-            plugins: {
-                title: { display: true, text: 'Graph 41: Prediction Distribution' }
-            }
-        }
-    });
-}
-
-// Graph 42: Prediction Trend
-function createPredictionTrendChart() {
-    const ctx = document.getElementById('prediction-trend').getContext('2d');
-    
-    // Simulate prediction trend
-    const predictions = [];
-    for (let i = 0; i < 50; i++) {
-        predictions.push(2.5 + Math.random() * 2);
-    }
-
-    charts['ml-5'] = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: Array.from({length: 50}, (_, i) => i + 1),
-            datasets: [{
-                label: 'Predicted',
-                data: predictions,
-                backgroundColor: 'rgba(231, 76, 60, 0.2)',
-                borderColor: 'rgba(231, 76, 60, 1)',
-                borderWidth: 2,
-                fill: false
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-                y: {
-                    min: 1,
-                    max: 5,
-                    title: { display: true, text: 'Predicted Rating' }
-                },
-                x: { title: { display: true, text: 'Sample Index' } }
-            },
-            plugins: {
-                title: { display: true, text: 'Graph 42: Prediction Trend' }
             }
         }
     });

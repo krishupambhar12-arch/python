@@ -24,7 +24,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="univariate">
+                        <a href="#" class="nav-link active" data-tab="univariate">
                             <span class="nav-icon">📈</span>
                             Univariate Analysis
                         </a>
@@ -36,7 +36,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" data-tab="distribution">
+                        <a href="#" class="nav-link" data-tab="distribution">
                             <span class="nav-icon">📉</span>
                             Distribution Analysis
                         </a>
@@ -48,7 +48,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-tab="ml">
+                        <a href="#" class="nav-link" data-tab="machine-learning">
                             <span class="nav-icon">🤖</span>
                              Machine Learning
                         </a>
@@ -112,7 +112,7 @@
             </div>
 
             <!-- Univariate Analysis Tab -->
-            <div class="tab-content" id="univariate">
+            <div class="tab-content active" id="univariate">
                 <div class="content-header">
                     <h1>Univariate Analysis</h1>
                     <p>Individual variable analysis and distributions</p>
@@ -253,42 +253,6 @@
                             <canvas id="first-20-installs"></canvas>
                         </div>
                         <p class="chart-description"><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To observe install data for a small sample.</p>
-                    </div>
-                    
-                    <!-- Graph 30 -->
-                    <div class="chart-item">
-                        <div class="chart-container">
-                            <h3>📊 Graph 30: Rating Distribution</h3>
-                            <canvas id="rating-distribution-uni"></canvas>
-                        </div>
-                        <p class="chart-description"><strong>Graph 30 Rating Distribution:</strong> Histogram with density curve showing rating distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze rating distribution.</p>
-                    </div>
-                    
-                    <!-- Graph 31 -->
-                    <div class="chart-item">
-                        <div class="chart-container">
-                            <h3>💬📊 Graph 31: Reviews Distribution</h3>
-                            <canvas id="reviews-distribution-uni"></canvas>
-                        </div>
-                        <p class="chart-description"><strong>Graph 31 Reviews Distribution:</strong> Shows how reviews are distributed.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze review distribution patterns.</p>
-                    </div>
-                    
-                    <!-- Graph 32 -->
-                    <div class="chart-item">
-                        <div class="chart-container">
-                            <h3>⬇️📊 Graph 32: Installs Distribution</h3>
-                            <canvas id="installs-distribution-uni"></canvas>
-                        </div>
-                        <p class="chart-description"><strong>Graph 32 Installs Distribution:</strong> Shows install count distribution.<br><strong>Function used:</strong> sns.histplot() with outlier removal<br><strong>Purpose:</strong> To analyze install distribution patterns.</p>
-                    </div>
-                    
-                    <!-- Graph 33 -->
-                    <div class="chart-item">
-                        <div class="chart-container">
-                            <h3>📦📊 Graph 33: Rating Boxplot</h3>
-                            <canvas id="rating-boxplot-uni"></canvas>
-                        </div>
-                        <p class="chart-description"><strong>Graph 33 Rating Boxplot:</strong> Displays rating spread and outliers.<br><strong>Function used:</strong> sns.boxplot() with outlier removal<br><strong>Purpose:</strong> To visualize rating variability and identify extreme values.</p>
                     </div>
                 </div>
             </div>
@@ -434,7 +398,7 @@
             </div>
 
             <!-- Distribution Analysis Tab -->
-            <div class="tab-content active" id="distribution">
+            <div class="tab-content" id="distribution">
                 <div class="content-header">
                     <h1>Distribution Analysis</h1>
                     <p>Advanced distribution visualizations</p>
@@ -484,49 +448,193 @@
                     <h1>Correlation Analysis</h1>
                     <p>Relationships and correlations between variables</p>
                 </div>
-                <div class="analysis-grid">
-                    <div class="chart-container full-width">
-                        <h3>Correlation Heatmap</h3>
-                        <canvas id="correlation-heatmap"></canvas>
+                <div class="chart-display">
+                    <!-- Graph 34 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🔥 Graph 34: Correlation Heatmap</h3>
+                            <canvas id="correlation-heatmap"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 34 Correlation Heatmap:</strong> Shows correlation between rating reviews and installs.<br><strong>Function used:</strong> sns.heatmap()<br><strong>Purpose:</strong> To measure strength of relationships.</p>
                     </div>
-                    <div class="chart-container">
-                        <h3>Pair Plot</h3>
-                        <canvas id="pair-plot"></canvas>
+                    
+                    <!-- Graph 35 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 35: Pair Plot</h3>
+                            <canvas id="pair-plot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 35 Pair Plot:</strong> Shows pairwise relationships among variables.<br><strong>Function used:</strong> sns.pairplot()<br><strong>Purpose:</strong> To visualize multiple relationships at once.</p>
+                    </div>
+                    
+                    <!-- Graph 36 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🖼️ Graph 36: Correlation Matrix Image</h3>
+                            <canvas id="correlation-matrix"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 36 Correlation Matrix Image:</strong> Another visual representation of correlation values.<br><strong>Function used:</strong> plt.imshow() with value annotations<br><strong>Purpose:</strong> To display correlation matrix visually.</p>
                     </div>
                 </div>
             </div>
 
             <!-- Machine Learning Tab -->
-            <div class="tab-content" id="ml">
+            <div class="tab-content" id="machine-learning">
                 <div class="content-header">
                     <h1>Machine Learning</h1>
                     <p>Predictive modeling and clustering</p>
                 </div>
-                <div class="analysis-grid">
-                    <div class="chart-container">
-                        <h3>Linear Regression: Reviews vs Rating</h3>
-                        <canvas id="regression-chart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <h3>K-Means Clustering</h3>
-                        <canvas id="clustering-chart"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <h3>Prediction Distribution</h3>
-                        <canvas id="prediction-dist"></canvas>
-                    </div>
-                    <div class="chart-container">
-                        <h3>Model Performance</h3>
-                        <div class="model-stats">
-                            <div class="stat-item">
-                                <span class="stat-label">R² Score:</span>
-                                <span class="stat-value" id="r2-score">Loading...</span>
-                            </div>
-                            <div class="stat-item">
-                                <span class="stat-label">Accuracy:</span>
-                                <span class="stat-value" id="accuracy">Loading...</span>
-                            </div>
+                <div class="chart-display">
+                    <!-- Graph 37 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 37: Linear Regression</h3>
+                            <canvas id="linear-regression"></canvas>
                         </div>
+                        <p class="chart-description"><strong>Graph 37 Linear Regression:</strong> Shows predicted regression line between reviews and rating.<br><strong>Function used:</strong> LinearRegression, plt.scatter, plt.plot with outlier removal<br><strong>Purpose:</strong> To predict ratings using reviews.</p>
+                    </div>
+                    
+                    <!-- Graph 38 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🔮 Graph 38: Prediction Scatter Plot</h3>
+                            <canvas id="prediction-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 38 Prediction Scatter Plot:</strong> Shows predicted ratings as points.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To visualize prediction results.</p>
+                    </div>
+                    
+                    <!-- Graph 39 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 39: Actual Values Scatter Plot</h3>
+                            <canvas id="actual-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 39 Actual Values Scatter Plot:</strong> Displays actual rating values.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To compare actual and predicted results.</p>
+                    </div>
+                    
+                    <!-- Graph 40 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🎯 Graph 40: KMeans Clustering</h3>
+                            <canvas id="kmeans-clustering"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 40 KMeans Clustering:</strong> Groups apps into clusters based on installs and reviews.<br><strong>Function used:</strong> KMeans() with outlier removal<br><strong>Purpose:</strong> To identify similar groups of apps.</p>
+                    </div>
+                    
+                    <!-- Graph 41 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 41: Prediction Distribution</h3>
+                            <canvas id="prediction-distribution"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 41 Prediction Distribution:</strong> Shows distribution of predicted ratings.<br><strong>Function used:</strong> plt.hist() with outlier removal<br><strong>Purpose:</strong> To understand prediction spread.</p>
+                    </div>
+                    
+                    <!-- Graph 42 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 42: Prediction Trend</h3>
+                            <canvas id="prediction-trend"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 42 Prediction Trend:</strong> Line graph showing prediction pattern for first 50 values.<br><strong>Function used:</strong> plt.plot() with outlier removal<br><strong>Purpose:</strong> To visualize prediction trend.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Correlation Analysis Tab -->
+            <div class="tab-content" id="correlation">
+                <div class="content-header">
+                    <h1>Correlation Analysis</h1>
+                    <p>Relationships and correlations between variables</p>
+                </div>
+                <div class="chart-display">
+                    <!-- Graph 34 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🔥 Graph 34: Correlation Heatmap</h3>
+                            <canvas id="correlation-heatmap"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 34 Correlation Heatmap:</strong> Shows correlation between rating reviews and installs.<br><strong>Function used:</strong> sns.heatmap()<br><strong>Purpose:</strong> To measure strength of relationships.</p>
+                    </div>
+                    
+                    <!-- Graph 35 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 35: Pairplot</h3>
+                            <canvas id="pair-plot"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 35 Pairplot:</strong> Shows pairwise relationships among variables.<br><strong>Function used:</strong> sns.pairplot()<br><strong>Purpose:</strong> To visualize multiple relationships at once.</p>
+                    </div>
+                    
+                    <!-- Graph 36 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🖼️ Graph 36: Correlation Matrix Image</h3>
+                            <canvas id="correlation-matrix"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 36 Correlation Matrix Image:</strong> Another visual representation of correlation values.<br><strong>Function used:</strong> plt.imshow() with value annotations<br><strong>Purpose:</strong> To display correlation matrix visually.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Machine Learning Tab -->
+            <div class="tab-content" id="machine-learning">
+                <div class="content-header">
+                    <h1>Machine Learning</h1>
+                    <p>Predictive analytics and clustering</p>
+                </div>
+                <div class="chart-display">
+                    <!-- Graph 37 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 37: Linear Regression</h3>
+                            <canvas id="linear-regression"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 37 Linear Regression:</strong> Shows predicted regression line between reviews and rating.<br><strong>Function used:</strong> LinearRegression, plt.scatter, plt.plot with outlier removal<br><strong>Purpose:</strong> To predict ratings using reviews.</p>
+                    </div>
+                    
+                    <!-- Graph 38 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🔮 Graph 38: Prediction Scatter Plot</h3>
+                            <canvas id="prediction-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 38 Prediction Scatter Plot:</strong> Shows predicted ratings as points.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To visualize prediction results.</p>
+                    </div>
+                    
+                    <!-- Graph 39 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 39: Actual Values Scatter Plot</h3>
+                            <canvas id="actual-scatter"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 39 Actual Values Scatter Plot:</strong> Displays actual rating values.<br><strong>Function used:</strong> plt.scatter() with outlier removal<br><strong>Purpose:</strong> To compare actual and predicted results.</p>
+                    </div>
+                    
+                    <!-- Graph 40 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>🎯 Graph 40: KMeans Clustering</h3>
+                            <canvas id="kmeans-clustering"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 40 KMeans Clustering:</strong> Groups apps into clusters based on installs and reviews.<br><strong>Function used:</strong> KMeans() with outlier removal<br><strong>Purpose:</strong> To identify similar groups of apps.</p>
+                    </div>
+                    
+                    <!-- Graph 41 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📊 Graph 41: Prediction Distribution</h3>
+                            <canvas id="prediction-distribution"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 41 Prediction Distribution:</strong> Shows distribution of predicted ratings.<br><strong>Function used:</strong> plt.hist() with outlier removal<br><strong>Purpose:</strong> To understand prediction spread.</p>
+                    </div>
+                    
+                    <!-- Graph 42 -->
+                    <div class="chart-item">
+                        <div class="chart-container">
+                            <h3>📈 Graph 42: Prediction Trend</h3>
+                            <canvas id="prediction-trend"></canvas>
+                        </div>
+                        <p class="chart-description"><strong>Graph 42 Prediction Trend:</strong> Line graph showing prediction pattern for first 50 values.<br><strong>Function used:</strong> plt.plot() with outlier removal<br><strong>Purpose:</strong> To visualize prediction trend.</p>
                     </div>
                 </div>
             </div>

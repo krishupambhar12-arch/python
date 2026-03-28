@@ -27,11 +27,7 @@ df["Installs"].fillna(df["Installs"].median(), inplace=True)
 
 # ---------------- TABS ----------------
 tab1, tab2, tab3, tab4, tab5 = st.tabs([
-"Univariate Analysis",
-"Bivariate Analysis",
-"Distribution Analysis",
-"Correlation Analysis",
-"Machine Learning"
+
 ])
 
 # =====================================================
