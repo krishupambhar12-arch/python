@@ -1,3 +1,8 @@
+/* ========================================
+   PLAY STORE DASHBOARD - ORGANIZED CSS
+   ======================================== */
+
+/* ==================== GLOBAL STYLES ==================== */
 * {
     margin: 0;
     padding: 0;
@@ -11,50 +16,12 @@ body {
     color: #333;
 }
 
-/* Graph Navigation Styles */
-.graph-navigation {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    margin-top: 30px;
-    margin-bottom: 20px;
-}
-
-.nav-btn {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 25px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
-}
-
-.nav-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
-}
-
-.nav-btn:active {
-    transform: translateY(0);
-}
-
-.nav-btn:disabled {
-    background: #ccc;
-    cursor: not-allowed;
-    transform: none;
-    box-shadow: none;
-}
-
 .dashboard-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* Sidebar Styles */
+/* ==================== SIDEBAR NAVIGATION ==================== */
 .sidebar {
     width: 280px;
     background: linear-gradient(180deg, #2c3e50 0%, #34495e 100%);
@@ -119,7 +86,7 @@ body {
     font-size: 1.2rem;
 }
 
-/* Main Content */
+/* ==================== MAIN CONTENT AREA ==================== */
 .main-content {
     flex: 1;
     margin-left: 280px;
@@ -128,7 +95,24 @@ body {
     min-height: 100vh;
 }
 
-/* Tab Content */
+.content-header {
+    margin-bottom: 15px;
+}
+
+.content-header h1 {
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+    margin-left: 317px;
+    font-weight: 700;
+}
+
+.content-header p {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+}
+
+/* ==================== TAB SYSTEM ==================== */
 .tab-content {
     display: none;
     animation: fadeIn 0.3s ease-in;
@@ -150,24 +134,7 @@ body {
     }
 }
 
-.content-header {
-    margin-bottom: 15px;
-}
-
-.content-header h1 {
-    font-size: 2.5rem;
-    color: #2c3e50;
-    margin-bottom: 10px;
-    margin-left: 317px;
-    font-weight: 700;
-}
-
-.content-header p {
-    color: #7f8c8d;
-    font-size: 1.1rem;
-}
-
-/* Chart Display Wrapper */
+/* ==================== CHART DISPLAY SYSTEM ==================== */
 .chart-display {
     display: flex;
     flex-direction: column;
@@ -225,43 +192,198 @@ body {
     }
 }
 
-.chart-navigation {
+/* ==================== UNIVARIATE ANALYSIS SECTION ==================== */
+/* Univariate Analysis specific styles - BLUE THEME */
+#univariate .chart-item {
+    border-left: 5px solid #3498db;
+}
+
+#univariate .chart-container h3 {
+    color: #2980b9;
+}
+
+#univariate .chart-description {
+    border-left-color: #3498db;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e3f2fd 100%);
+}
+
+/* ==================== BIVARIATE ANALYSIS SECTION ==================== */
+/* Bivariate Analysis specific styles - RED THEME */
+#bivariate .chart-item {
+    border-left: 5px solid #e74c3c;
+}
+
+#bivariate .chart-container h3 {
+    color: #c0392b;
+}
+
+#bivariate .chart-description {
+    border-left-color: #e74c3c;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffebee 100%);
+}
+
+/* ==================== DISTRIBUTION ANALYSIS SECTION ==================== */
+/* Distribution Analysis specific styles - ORANGE THEME */
+#distribution .chart-item {
+    border-left: 5px solid #f39c12;
+}
+
+#distribution .chart-container h3 {
+    color: #d68910;
+}
+
+#distribution .chart-description {
+    border-left-color: #f39c12;
+    background: linear-gradient(135deg, #f8f9fa 0%, #fff8e1 100%);
+}
+
+/* ==================== CORRELATION ANALYSIS SECTION ==================== */
+/* Correlation Analysis specific styles - PURPLE THEME */
+#correlation .chart-item {
+    border-left: 5px solid #9b59b6;
+}
+
+#correlation .chart-container h3 {
+    color: #8e44ad;
+}
+
+#correlation .chart-description {
+    border-left-color: #9b59b6;
+    background: linear-gradient(135deg, #f8f9fa 0%, #f3e5f5 100%);
+}
+
+/* ==================== MACHINE LEARNING SECTION ==================== */
+/* Machine Learning specific styles - GREEN THEME */
+#machine-learning .chart-item {
+    border-left: 5px solid #27ae60;
+}
+
+#machine-learning .chart-container h3 {
+    color: #229954;
+}
+
+#machine-learning .chart-description {
+    border-left-color: #27ae60;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8f5e8 100%);
+}
+
+/* ==================== NAVIGATION BUTTONS ==================== */
+/* Graph Navigation Styles */
+.graph-navigation {
     display: flex;
     justify-content: center;
     gap: 20px;
     margin-top: 30px;
-    padding: 20px;
+    margin-bottom: 20px;
 }
 
-.nav-button {
+.nav-btn {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border: none;
     padding: 12px 30px;
     border-radius: 25px;
-    font-size: 1rem;
+    font-size: 16px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
 }
 
-.nav-button:hover {
+.nav-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
 }
 
-.nav-button:active {
+.nav-btn:active {
     transform: translateY(0);
 }
 
-.nav-button:disabled {
-    opacity: 0.5;
+.nav-btn:disabled {
+    background: #ccc;
     cursor: not-allowed;
     transform: none;
+    box-shadow: none;
 }
 
-/* Stats Grid */
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 250px;
+    }
+    
+    .main-content {
+        margin-left: 250px;
+    }
+    
+    .content-header h1 {
+        font-size: 2rem;
+        margin-left: 0;
+    }
+    
+    .chart-item {
+        padding: 1rem;
+    }
+    
+    .nav-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidebar {
+        width: 200px;
+    }
+    
+    .main-content {
+        margin-left: 200px;
+        padding: 10px;
+    }
+    
+    .content-header h1 {
+        font-size: 1.5rem;
+    }
+    
+    .chart-display {
+        padding: 0.25rem 0;
+        gap: 0.25rem;
+    }
+    
+    .chart-item {
+        padding: 0.75rem;
+    }
+    
+    .graph-navigation {
+        gap: 10px;
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
+    .nav-btn {
+        padding: 8px 15px;
+        font-size: 12px;
+    }
+}
+
+/* ==================== UTILITY CLASSES ==================== */
+.text-center {
+    text-align: center;
+}
+
+.mb-0 {
+    margin-bottom: 0;
+}
+
+.mt-1 {
+    margin-top: 0.25rem;
+}
+
+.mb-1 {
+    margin-bottom: 0.25rem;
+}
+
+/* ==================== STATS GRID ==================== */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));

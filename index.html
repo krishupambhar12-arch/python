@@ -7,6 +7,126 @@
     <link rel="stylesheet" href="style.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+    <style>
+        /* Only Your Color Scheme Applied */
+        :root {
+            --color-1: #C0D3E4;
+            --color-2: #F3DBWq;
+            --color-3: #q5qBBD;
+            --color-4: #465375;
+        }
+        
+        /* Apply your colors to all elements */
+        body {
+            background: var(--color-2) !important;
+            color: var(--color-4) !important;
+        }
+        
+        .dashboard-container {
+            background: var(--color-2) !important;
+        }
+        
+        .main-content {
+            background: var(--color-2) !important;
+        }
+        
+        .content-header h1 {
+            color: var(--color-4) !important;
+        }
+        
+        .content-header p {
+            color: var(--color-3) !important;
+        }
+        
+        .chart-container h3 {
+            color: var(--color-4) !important;
+        }
+        
+        .chart-description {
+            color: var(--color-3) !important;
+            background: var(--color-2) !important;
+            border-left-color: var(--color-4) !important;
+        }
+        
+        .chart-item {
+            background: white !important;
+            border-left: 4px solid var(--color-4) !important;
+            box-shadow: 0 8px 32px rgba(70, 83, 117, 0.1) !important;
+        }
+        
+        .stat-card {
+            background: white !important;
+            border-left: 4px solid var(--color-4) !important;
+            box-shadow: 0 5px 15px rgba(70, 83, 117, 0.1) !important;
+        }
+        
+        .stat-card h3 {
+            color: var(--color-4) !important;
+        }
+        
+        .stat-card p {
+            color: var(--color-3) !important;
+        }
+        
+        .stat-icon {
+            color: var(--color-4) !important;
+        }
+        
+        /* Navigation buttons */
+        .nav-btn {
+            background: var(--color-4) !important;
+            color: white !important;
+        }
+        
+        .nav-btn:hover {
+            background: var(--color-1) !important;
+            color: white !important;
+        }
+        
+        .nav-btn:disabled {
+            background: var(--color-3) !important;
+            color: white !important;
+        }
+        
+        /* Sidebar with solid background color */
+        .sidebar {
+            background: #465375 !important;
+            color: white !important;
+        }
+        
+        .sidebar-header {
+            background: rgba(70, 83, 117, 0.3) !important;
+            border-bottom: 1px solid rgba(243, 219, 184, 0.2) !important;
+        }
+        
+        .sidebar-header h2 {
+            color: white !important;
+        }
+        
+        .nav-link {
+            color: white !important;
+        }
+        
+        .nav-link:hover {
+            background: rgba(243, 219, 184, 0.3) !important;
+            color: white !important;
+            border-left-color: white !important;
+        }
+        
+        .nav-link.active {
+            background: rgba(243, 219, 184, 0.4) !important;
+            color: white !important;
+            border-left-color: white !important;
+        }
+        
+        .nav-icon {
+            margin-right: 12px !important;
+            font-size: 1.2rem !important;
+            display: inline-block !important;
+            width: 20px !important;
+            text-align: center !important;
+        }
+    </style>
 </head>
 <body>
     <div class="dashboard-container">
@@ -19,37 +139,37 @@
                 <ul class="nav-menu">
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-tab="dashboard">
-                            <span class="nav-icon">📊</span>
+                            <span class="nav-icon">🏠</span>
                             Dashboard
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link active" data-tab="univariate">
-                            <span class="nav-icon">📈</span>
+                            <span class="nav-icon">📊</span>
                             Univariate Analysis
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-tab="bivariate">
-                            <span class="nav-icon">🔍</span>
+                            <span class="nav-icon">🔬</span>
                             Bivariate Analysis
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-tab="distribution">
-                            <span class="nav-icon">📉</span>
+                            <span class="nav-icon">📈</span>
                             Distribution Analysis
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-tab="correlation">
-                            <span class="nav-icon">🔗</span>
+                            <span class="nav-icon">🎯</span>
                              Correlation Analysis
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-tab="machine-learning">
-                            <span class="nav-icon">🤖</span>
+                            <span class="nav-icon">⚙️</span>
                              Machine Learning
                         </a>
                     </li>
@@ -404,11 +524,6 @@
                     <div class="graph-navigation">
                         <button class="nav-btn" id="bivariate-prev-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
                         <button class="nav-btn" id="bivariate-next-btn" onclick="navigateBivariateGraph('next')">Next</button>
-                    </div>
-                </div>
-            </div>
-                        <h3>Average Rating by Category</h3>
-                        <canvas id="avg-rating-category"></canvas>
                     </div>
                 </div>
             </div>
