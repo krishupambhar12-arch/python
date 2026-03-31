@@ -429,7 +429,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 1 Rating Histogram:</strong> This graph shows the distribution of app ratings in the dataset. It helps understand how ratings are spread across applications such as how many apps have ratings near 4 or near 3.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand the frequency distribution of ratings.</p>
+                                    <p><strong>Graph 1 Rating Histogram:</strong> This graph shows the distribution of app ratings focused on the 3-5 range where most meaningful data exists. It helps understand how ratings are concentrated for quality apps.<br><br><strong>Function used:</strong> df[col].hist() with 3-5 range filtering<br><br><strong>Purpose:</strong> To analyze rating distribution focusing on quality apps (3-5 rating).</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -447,7 +447,7 @@
                                     <img id="graph-2" class="dynamic-graph" src="/graphs/graph_2_reviews_histogram.png" alt="Reviews Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 2 Reviews Histogram:</strong> This graph shows the distribution of app reviews in the dataset. It helps understand how reviews are spread across applications.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand the frequency distribution of reviews.</p>
+                                    <p><strong>Graph 2 Reviews Histogram:</strong> This graph shows the distribution of app reviews with log normalization to handle large values. Reviews are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df[col].hist() with 95th percentile filtering<br><br><strong>Purpose:</strong> To understand review distribution with normalized scale (0-5 range).</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -465,7 +465,7 @@
                                     <img id="graph-3" class="dynamic-graph" src="/graphs/graph_3_installs_histogram.png" alt="Installs Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 3 Installs Histogram:</strong> This graph shows the distribution of the number of installs for apps.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand how many apps have low installs and how many are highly installed.</p>
+                                    <p><strong>Graph 3 Installs Histogram:</strong> This histogram shows the distribution of app installs with log normalization to handle large values. Install counts are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df[col].hist() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze install distribution with normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -483,7 +483,7 @@
                                     <img id="graph-4" class="dynamic-graph" src="/graphs/graph_4_rating_boxplot.png" alt="Rating Boxplot">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 4 Rating Boxplot:</strong> This boxplot visualizes the spread of ratings and detects outliers.<br><strong>Function used:</strong> df['Rating'].plot.box() with outlier removal<br><strong>Purpose:</strong> To analyze rating variability and identify extreme values.</p>
+                                    <p><strong>Graph 4 Rating Boxplot:</strong> This boxplot visualizes the spread of ratings focused on 3-5 range where most meaningful data exists. It shows rating variability for quality apps.<br><br><strong>Function used:</strong> df['Rating'].plot.box() with 3-5 range filtering<br><br><strong>Purpose:</strong> To analyze rating variability for quality apps (3-5 rating range).</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -501,7 +501,7 @@
                                     <img id="graph-5" class="dynamic-graph" src="/graphs/graph_5_reviews_boxplot.png" alt="Reviews Boxplot">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 5 Reviews Boxplot:</strong> This boxplot shows the distribution and outliers in the number of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.box() with outlier removal<br><strong>Purpose:</strong> To understand the range and extreme values in review counts.</p>
+                                    <p><strong>Graph 5 Reviews Boxplot:</strong> This boxplot shows the distribution of reviews with log normalization to handle large values. Reviews are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df[col].plot.box() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze review distribution with normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -519,7 +519,7 @@
                                     <img id="graph-6" class="dynamic-graph" src="/graphs/graph_6_installs_boxplot.png" alt="Installs Boxplot">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 6 Installs Boxplot:</strong> This graph shows the spread and outliers in installs.<br><strong>Function used:</strong> df['Installs'].plot.box() with outlier removal<br><strong>Purpose:</strong> To observe variation in install counts.</p>
+                                    <p><strong>Graph 6 Installs Boxplot:</strong> This boxplot shows the distribution of installs with log normalization to handle large values. Install counts are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df[col].plot.box() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze install distribution with normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -537,7 +537,7 @@
                                     <img id="graph-7" class="dynamic-graph" src="/graphs/graph_7_category_bar_chart.png" alt="Category Bar Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 7 Category Bar Chart:</strong> This bar chart shows the top 10 most common app categories.<br><strong>Function used:</strong> df['Category'].value_counts().plot.bar()<br><strong>Purpose:</strong> To identify the most popular app categories.</p>
+                                    <p><strong>Graph 7 Category Bar Chart:</strong> This bar chart shows the top 10 most common app categories in the dataset. It helps identify which app categories are most popular among users.<br><br><strong>Function used:</strong> df['Category'].value_counts().head(10).plot.bar()<br><br><strong>Purpose:</strong> To identify the most popular app categories for market analysis.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -555,7 +555,7 @@
                                     <img id="graph-8" class="dynamic-graph" src="/graphs/graph_8_free_paid_pie_chart.png" alt="Free vs Paid Pie Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 8 Free vs Paid Pie Chart:</strong> This pie chart shows the percentage of free and paid apps.<br><strong>Function used:</strong> df['Type'].value_counts().plot.pie()<br><strong>Purpose:</strong> To understand the proportion of free versus paid applications.</p>
+                                    <p><strong>Graph 8 Free vs Paid Pie Chart:</strong> This pie chart shows the percentage distribution between free and paid apps in the dataset. It helps understand the market structure.<br><br><strong>Function used:</strong> df['Type'].value_counts().plot.pie()<br><br><strong>Purpose:</strong> To analyze the proportion of free versus paid applications for market insights.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -573,7 +573,7 @@
                                     <img id="graph-9" class="dynamic-graph" src="/graphs/graph_9_content_rating_bar_chart.png" alt="Content Rating Bar Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 9 Content Rating Bar Chart:</strong> This graph shows how many apps belong to each content rating category.<br><strong>Function used:</strong> df['Content Rating'].value_counts().plot.bar()<br><strong>Purpose:</strong> To analyze app distribution based on audience age group.</p>
+                                    <p><strong>Graph 9 Content Rating Bar Chart:</strong> This graph shows the distribution of apps across content rating categories with filtering for low-count categories. It helps understand the target audience distribution.<br><br><strong>Function used:</strong> df['Content Rating'].value_counts().plot.bar() with low-count filtering<br><br><strong>Purpose:</strong> To analyze app distribution by content rating for audience insights.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -591,7 +591,7 @@
                                     <img id="graph-10" class="dynamic-graph" src="/graphs/graph_10_sorted_rating_line.png" alt="Sorted Rating Line Graph">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 10 Sorted Rating Line Graph:</strong> This line graph shows ratings sorted from lowest to highest.<br><strong>Function used:</strong> plt.plot() with outlier removal<br><strong>Purpose:</strong> To visualize the overall rating trend.</p>
+                                    <p><strong>Graph 10 Sorted Rating Line Graph:</strong> This line graph shows ratings sorted from lowest to highest focused on the 3-5 range where most meaningful data exists.<br><br><strong>Function used:</strong> plt.plot() with 3-5 range filtering<br><br><strong>Purpose:</strong> To visualize rating distribution for quality apps (3-5 rating range).</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -609,7 +609,7 @@
                                     <img id="graph-11" class="dynamic-graph" src="/graphs/graph_11_rating_kde.png" alt="Rating KDE Plot">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 11 Rating KDE Plot:</strong> This plot shows the probability density distribution of ratings.<br><strong>Function used:</strong> df['Rating'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To understand the smooth distribution of ratings.</p>
+                                    <p><strong>Graph 11 Rating KDE Plot:</strong> This plot shows the probability density distribution of ratings focused on the 3-5 range where most meaningful data exists. It provides a smooth curve of rating concentration.<br><br><strong>Function used:</strong> df['Rating'].plot.kde() with 3-5 range filtering<br><br><strong>Purpose:</strong> To understand the smooth distribution of quality app ratings.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -627,7 +627,7 @@
                                     <img id="graph-12" class="dynamic-graph" src="/graphs/graph_12_reviews_kde.png" alt="Reviews KDE Plot">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 12 Reviews KDE Plot:</strong> This graph displays the density distribution of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To analyze review density patterns.</p>
+                                    <p><strong>Graph 12 Reviews KDE Plot:</strong> This graph displays the density distribution of reviews with log normalization to handle large values. Reviews are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df['Reviews'].plot.kde() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze review density patterns with normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -645,7 +645,7 @@
                                     <img id="graph-13" class="dynamic-graph" src="/graphs/graph_13_first_20_ratings.png" alt="First 20 Ratings Bar Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 13 First 20 Ratings Bar Chart:</strong> This bar chart shows ratings for the first 20 apps in the dataset.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To visualize a small sample of ratings.</p>
+                                    <p><strong>Graph 13 First 20 Ratings Bar Chart:</strong> This bar chart shows ratings for the first 20 apps in the dataset. It provides a sample view of individual app ratings.<br><br><strong>Function used:</strong> plt.bar() with head(20) data selection<br><br><strong>Purpose:</strong> To visualize a representative sample of app ratings for initial analysis.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -663,7 +663,7 @@
                                     <img id="graph-14" class="dynamic-graph" src="/graphs/graph_14_first_20_reviews.png" alt="First 20 Reviews Bar Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 14 First 20 Reviews Bar Chart:</strong> This graph displays the review counts of the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To view a small sample of review data.</p>
+                                    <p><strong>Graph 14 First 20 Reviews Bar Chart:</strong> This graph displays the review counts of the first 20 apps with log normalization to handle large values. Reviews are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + plt.bar() with head(20) data selection<br><br><strong>Purpose:</strong> To view a representative sample of review data with normalized scale.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -681,7 +681,7 @@
                                     <img id="graph-15" class="dynamic-graph" src="/graphs/graph_15_first_20_installs.png" alt="First 20 Installs Bar Chart">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To observe install data for a small sample.</p>
+                                    <p><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps with log normalization to handle large values. Install counts are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + plt.bar() with head(20) data selection<br><br><strong>Purpose:</strong> To observe install data for a representative sample with normalized scale.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
@@ -711,9 +711,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_16_reviews_rating_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 16 Reviews vs Rating Scatter Plot:</strong> This graph shows the relationship between reviews and ratings.</p>
-                                    <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To see whether apps with more reviews tend to have higher ratings.</p>
+                                    <p><strong>Graph 16 Reviews vs Rating Scatter Plot:</strong> This graph shows the relationship between reviews and ratings with log normalization for reviews and 3-5 rating range focus. It helps analyze if more reviews correlate with better ratings.<br><br><strong>Function used:</strong> np.log1p() + plt.scatter() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To analyze review-rating correlation for quality apps using normalized data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -731,9 +729,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_17_installs_rating_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 17 Installs vs Rating Scatter Plot:</strong> This graph shows the relationship between installs and ratings.</p>
-                                    <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To analyze whether highly installed apps have better ratings.</p>
+                                    <p><strong>Graph 17 Installs vs Rating Scatter Plot:</strong> This graph shows the relationship between installs and ratings with log normalization for installs and 3-5 rating range focus. It helps analyze if more installs correlate with better ratings.<br><br><strong>Function used:</strong> np.log1p() + plt.scatter() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To analyze install-rating correlation for quality apps using normalized data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -751,9 +747,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_18_installs_reviews_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 18 Installs vs Reviews Scatter Plot:</strong> This plot shows the relationship between installs and reviews.</p>
-                                    <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To check whether apps with more installs receive more reviews.</p>
+                                    <p><strong>Graph 18 Installs vs Reviews Scatter Plot:</strong> This graph shows the relationship between installs and reviews with log normalization for both variables. It helps analyze the correlation between app popularity metrics.<br><br><strong>Function used:</strong> • np.log1p() + plt.scatter() with 95th percentile filtering for both axes<br><p>• plt.scatter() with outlier removal</p><br><strong>Purpose:</strong> To analyze install-review correlation using normalized scales for large numbers.To check whether apps with more installs receive more reviews.</p>
+                                    
+                                    
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -771,9 +767,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_19_avg_rating_category.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 19 Average Rating by Category:</strong> This bar chart displays average rating for each app category.</p>
-                                    <p><strong>Function used:</strong> groupby().plot.bar()</p>
-                                    <p><strong>Purpose:</strong> To identify categories with higher average ratings.</p>
+                                    <p><strong>Graph 19 Average Rating by Category:</strong> This bar chart displays average rating for each app category with 3-5 rating range focus. It helps identify which categories have higher quality apps.<br><br><strong>Function used:</strong> groupby().mean().plot.bar() with 3-5 range filtering<br><br><strong>Purpose:</strong> To identify categories with higher average ratings for quality insights.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -791,9 +785,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_20_rating_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 20 Rating by Type Boxplot:</strong> This compares ratings between free and paid apps.</p>
-                                    <p><strong>Function used:</strong> df.boxplot()</p>
-                                    <p><strong>Purpose:</strong> To analyze rating differences between free and paid applications.</p>
+                                    <p><strong>Graph 20 Rating by Type Boxplot:</strong> This compares ratings between free and paid apps focused on the 3-5 range where most meaningful data exists. It shows rating distribution by app type.<br><br><strong>Function used:</strong> df.boxplot() with 3-5 range filtering and 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze rating differences between free and paid apps for quality insights.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -811,9 +803,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_21_reviews_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 21 Reviews by Type Boxplot:</strong> This graph compares review counts between free and paid apps.</p>
-                                    <p><strong>Function used:</strong> df.boxplot()</p>
-                                    <p><strong>Purpose:</strong> To study user engagement differences.</p>
+                                    <p><strong>Graph 21 Reviews by Type Boxplot:</strong> This graph compares review counts between free and paid apps with log normalization to handle large values. Reviews are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df.boxplot() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze user engagement differences between free and paid apps using normalized scale.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -831,9 +821,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_22_installs_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 22 Installs by Type Boxplot:</strong> This graph compares install numbers between free and paid apps.</p>
-                                    <p><strong>Function used:</strong> df.boxplot()</p>
-                                    <p><strong>Purpose:</strong> To analyze download patterns.</p>
+                                    <p><strong>Graph 22 Installs by Type Boxplot:</strong> This graph compares install numbers between free and paid apps with log normalization to handle large values. Install counts are compressed using log transformation for better visualization.<br><br><strong>Function used:</strong> np.log1p() + df.boxplot() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze download pattern differences between free and paid apps using normalized scale.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -851,9 +839,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_23_hexbin.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 23 Hexbin Plot:</strong> This plot shows density between installs and reviews.</p>
-                                    <p><strong>Function used:</strong> plt.hexbin() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To visualize data concentration in large datasets.</p>
+                                    <p><strong>Graph 23 Hexbin Plot:</strong> This plot shows density between installs and reviews with log normalization for both variables. It helps visualize data concentration patterns.<br><br><strong>Function used:</strong> np.log1p() + plt.hexbin() with 95th percentile filtering for both axes<br><br><strong>Purpose:</strong> To visualize data concentration patterns using normalized scales for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -871,9 +857,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_24_2d_histogram.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 24 2D Histogram:</strong> This shows combined distribution of reviews and ratings.</p>
-                                    <p><strong>Function used:</strong> plt.hist2d() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To observe density patterns between two variables.</p>
+                                    <p><strong>Graph 24 2D Histogram:</strong> This shows the combined distribution of reviews and installs with log normalization for both variables. It helps visualize density patterns between two metrics.<br><br><strong>Function used:</strong> np.log1p() + plt.hist2d() with 95th percentile filtering for both axes<br><br><strong>Purpose:</strong> To observe density patterns between two variables using normalized scales.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -891,8 +875,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_25_seaborn_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 25 Seaborn Scatter Plot:</strong> Advanced scatter visualization for reviews vs rating.</p>
-                                    <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
+                                    <p><strong>Graph 25 Seaborn Scatter Plot:</strong> Advanced scatter visualization for reviews vs rating with log normalization for reviews and 3-5 rating range focus. It provides enhanced visualization of the relationship.<br><br><strong>Function used:</strong> np.log1p() + sns.scatterplot() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To analyze review-rating correlation with enhanced visualization using normalized data.</p>
                                     <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
@@ -911,9 +894,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_26_installs_rating_scatter_2.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 26 Installs vs Rating Scatter:</strong> Shows relationship between installs and ratings.</p>
-                                    <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                                    <p><strong>Graph 26 Installs vs Rating Scatter:</strong> Shows relationship between installs and ratings with log normalization for installs and 3-5 rating range focus. It provides enhanced visualization of the correlation.<br><br><strong>Function used:</strong> np.log1p() + sns.scatterplot() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To visualize install-rating relationships with enhanced aesthetics using normalized data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -931,9 +912,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_27_installs_reviews_scatter_2.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 27 Installs vs Reviews Scatter:</strong> Shows relationship between installs and reviews.</p>
-                                    <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                                    <p><strong>Graph 27 Installs vs Reviews Scatter:</strong> Shows relationship between installs and reviews with log normalization for both variables. It provides enhanced visualization of the correlation between popularity metrics.<br><br><strong>Function used:</strong> np.log1p() + sns.scatterplot() with 95th percentile filtering for both axes<br><br><strong>Purpose:</strong> To visualize install-review relationships with enhanced aesthetics using normalized scales.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -951,9 +930,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_28_regression_reviews_rating.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 28 Regression Reviews vs Rating:</strong> This plot shows trend line between reviews and ratings.</p>
-                                    <p><strong>Function used:</strong> sns.regplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To identify linear relationships.</p>
+                                    <p><strong>Graph 28 Regression Reviews vs Rating:</strong> This plot shows trend line between reviews and ratings with log normalization for reviews and 3-5 rating range focus. It includes a red regression line for clear trend visualization.<br><br><strong>Function used:</strong> np.log1p() + sns.regplot() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To identify linear relationships between reviews and ratings using normalized data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -971,9 +948,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_29_regression_installs_rating.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 29 Regression Installs vs Rating:</strong> Shows trend between installs and ratings.</p>
-                                    <p><strong>Function used:</strong> sns.regplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To identify linear relationships.</p>
+                                    <p><strong>Graph 29 Regression Installs vs Rating:</strong> Shows trend between installs and ratings with log normalization for installs and 3-5 rating range focus. It includes a red regression line for clear trend visualization.<br><br><strong>Function used:</strong> np.log1p() + sns.regplot() with 95th percentile filtering and 3-5 range<br><br><strong>Purpose:</strong> To identify linear relationships between installs and ratings using normalized data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
@@ -1003,9 +978,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_30_rating_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 30 Rating Distribution:</strong> Histogram with density curve showing rating distribution.</p>
-                                    <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To analyze rating distribution.</p>
+                                    <p><strong>Graph 30 Rating Distribution:</strong> This histogram with density curve shows the distribution of app ratings focused on the 3-5 range where most meaningful data exists. It provides a smooth curve overlay to visualize the probability density of ratings.<br><br><strong>Function used:</strong> sns.histplot() with kde=True and 3-5 range filtering<br><br><strong>Purpose:</strong> To analyze rating distribution patterns with density visualization for quality apps.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
@@ -1023,9 +996,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_31_reviews_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 31 Reviews Distribution:</strong> Shows how reviews are distributed.</p>
-                                    <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To analyze review distribution patterns.</p>
+                                    <p><strong>Graph 31 Reviews Distribution:</strong> This histogram shows the distribution of app reviews with log normalization to handle large values. Reviews are compressed using log transformation and filtered at the 95th percentile for better visualization of the distribution patterns.<br><br><strong>Function used:</strong> np.log1p() + sns.histplot() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze review distribution patterns using normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
@@ -1043,9 +1014,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_32_installs_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 32 Installs Distribution:</strong> Shows install count distribution.</p>
-                                    <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To analyze install distribution patterns.</p>
+                                    <p><strong>Graph 32 Installs Distribution:</strong> This histogram displays the distribution of app installs with log normalization to handle large values. Install counts are compressed using log transformation and filtered at the 95th percentile to better visualize the distribution patterns across different app popularity levels.<br><br><strong>Function used:</strong> np.log1p() + sns.histplot() with 95th percentile filtering<br><br><strong>Purpose:</strong> To analyze install distribution patterns using normalized scale for large numbers.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
@@ -1063,9 +1032,7 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_33_rating_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 33 Rating Boxplot:</strong> Displays rating spread and outliers.</p>
-                                    <p><strong>Function used:</strong> sns.boxplot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To analyze rating variability and identify outliers.</p>
+                                    <p><strong>Graph 33 Rating Boxplot:</strong> This boxplot visualizes the spread of ratings focused on the 3-5 range where most meaningful data exists. It shows the median, quartiles, and potential outliers to understand rating variability and distribution shape for quality apps.<br><br><strong>Function used:</strong> sns.boxplot() with 3-5 range filtering and outlier detection<br><br><strong>Purpose:</strong> To analyze rating variability and identify outliers in the quality app range.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
@@ -1095,9 +1062,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_34_correlation_heatmap.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 34 Correlation Heatmap:</strong> Shows correlation between rating reviews and installs.</p>
-                                    <p><strong>Function used:</strong> sns.heatmap()</p>
-                                    <p><strong>Purpose:</strong> To measure strength of relationships.</p>
+                                    <p><strong>Graph 34 Correlation Heatmap:</strong> This heatmap visualizes the correlation coefficients between rating, reviews, and installs variables using color intensity to represent correlation strength. It helps identify which variables are most strongly related to each other.</p>
+                                    <p><br><strong>Function used:</strong> sns.heatmap() with correlation matrix and color mapping</p>
+                                    <p><br><strong>Purpose:</strong> To measure and visualize the strength and direction of relationships between key app metrics.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
@@ -1115,9 +1082,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_35_pairplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 35 Pairplot:</strong> Shows pairwise relationships among variables.</p>
-                                    <p><strong>Function used:</strong> sns.pairplot()</p>
-                                    <p><strong>Purpose:</strong> To visualize multiple relationships at once.</p>
+                                    <p><strong>Graph 35 Pairplot:</strong> This pairplot displays pairwise relationships between rating, reviews, and installs variables in a grid format. It shows both scatter plots for relationships and histograms for individual distributions, providing comprehensive multivariate analysis.</p>
+                                    <p><br><strong>Function used:</strong> sns.pairplot() with diagonal histograms and scatter plots</p>
+                                    <p><br><strong>Purpose:</strong> To visualize multiple variable relationships simultaneously and identify patterns across different metric combinations.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
@@ -1135,9 +1102,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_36_correlation_matrix.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 36 Correlation Matrix:</strong> Another visual representation of correlation values.</p>
-                                    <p><strong>Function used:</strong> plt.imshow() with value annotations</p>
-                                    <p><strong>Purpose:</strong> To display correlation matrix visually.</p>
+                                    <p><strong>Graph 36 Correlation Matrix:</strong> This matrix provides an alternative visual representation of correlation values using color-coded cells with numerical annotations. It displays the exact correlation coefficients between variables for precise analysis.</p>
+                                    <p><br><strong>Function used:</strong> plt.imshow() with value annotations and colorbar</p>
+                                    <p><br><strong>Purpose:</strong> To display correlation matrix visually with exact numerical values for detailed relationship analysis.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
@@ -1167,9 +1134,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_37_linear_regression.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 37 Linear Regression:</strong> Shows predicted regression line between reviews and rating.</p>
-                                    <p><strong>Function used:</strong> LinearRegression, plt.scatter, plt.plot with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To predict ratings using reviews.</p>
+                                    <p><strong>Graph 37 Linear Regression:</strong> This graph shows a linear regression model predicting app ratings based on review counts with outlier removal for better accuracy. It displays the fitted regression line along with confidence intervals to show prediction uncertainty.</p>
+                                    <p><br><strong>Function used:</strong> LinearRegression from sklearn with plt.scatter and plt.plot, 95th percentile filtering</p>
+                                    <p><br><strong>Purpose:</strong> To predict ratings using reviews as a predictor variable and quantify the relationship strength.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
@@ -1187,9 +1154,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_38_prediction_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 38 Prediction Scatter Plot:</strong> Shows predicted ratings as points.</p>
-                                    <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To visualize prediction results.</p>
+                                    <p><strong>Graph 38 Prediction Scatter Plot:</strong> This scatter plot visualizes the predicted ratings from the linear regression model against actual review counts. It shows how the model predictions are distributed and helps identify prediction patterns across different review levels.</p>
+                                    <p><br><strong>Function used:</strong> plt.scatter() with model predictions and 95th percentile filtering</p>
+                                    <p><br><strong>Purpose:</strong> To visualize prediction results and assess model performance across the data range.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
@@ -1207,9 +1174,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_39_actual_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 39 Actual Values Scatter Plot:</strong> Displays actual rating values.</p>
-                                    <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To compare actual and predicted results.</p>
+                                    <p><strong>Graph 39 Actual Values Scatter Plot:</strong> This scatter plot displays the actual rating values against review counts for comparison with predicted values. It provides a baseline to evaluate how well the regression model captures the real data patterns.</p>
+                                    <p><br><strong>Function used:</strong> plt.scatter() with actual values and 95th percentile filtering</p>
+                                    <p><br><strong>Purpose:</strong> To compare actual and predicted results and assess model accuracy.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
@@ -1227,9 +1194,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_40_kmeans_clustering.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 40 KMeans Clustering:</strong> Groups apps into clusters based on installs and reviews.</p>
-                                    <p><strong>Function used:</strong> KMeans() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To identify similar groups of apps.</p>
+                                    <p><strong>Graph 40 KMeans Clustering:</strong> This graph applies the KMeans clustering algorithm to group apps into distinct clusters based on their install and review patterns with log normalization. It helps identify natural groupings of apps with similar popularity characteristics.</p>
+                                    <p><br><strong>Function used:</strong> KMeans() with np.log1p() normalization and 95th percentile filtering</p>
+                                    <p><br><strong>Purpose:</strong> To identify similar groups of apps based on their popularity metrics for market segmentation analysis.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
@@ -1247,9 +1214,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_41_prediction_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 41 Prediction Distribution:</strong> Shows distribution of predicted ratings.</p>
-                                    <p><strong>Function used:</strong> plt.hist() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To understand prediction spread.</p>
+                                    <p><strong>Graph 41 Prediction Distribution:</strong> This histogram shows the distribution of predicted ratings from the linear regression model. It helps understand how the model's predictions are spread and whether they follow expected patterns in the 3-5 rating range.</p>
+                                    <p><br><strong>Function used:</strong> plt.hist() with model predictions and 3-5 range filtering</p>
+                                    <p><br><strong>Purpose:</strong> To understand prediction spread and assess whether predictions are realistic and well-distributed.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
@@ -1267,9 +1234,9 @@
                                     <img id="graph-1" class="dynamic-graph" src="/graphs/graph_42_prediction_trend.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
-                                    <p><strong>Graph 42 Prediction Trend:</strong> Line graph showing prediction pattern for first 50 values.</p>
-                                    <p><strong>Function used:</strong> plt.plot() with outlier removal</p>
-                                    <p><strong>Purpose:</strong> To visualize prediction trend.</p>
+                                    <p><strong>Graph 42 Prediction Trend:</strong> This line graph displays the prediction trend for the first 50 apps, showing how predicted ratings vary across the sample. It helps identify patterns, trends, or anomalies in the model's predictions across different apps.</p>
+                                    <p><br><strong>Function used:</strong> plt.plot() with model predictions and sample selection</p>
+                                    <p><br><strong>Purpose:</strong> To visualize prediction trends and identify patterns or inconsistencies in the model behavior across the data sample.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
                                         <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
