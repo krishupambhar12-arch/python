@@ -1,1 +1,45 @@
 python -m streamlit run p1.py
+
+
+
+cd templates
+pip install -r requirements.txt
+python app.py
+
+
+
+
+Genres means શૈલીઓ or પ્રકાર in Gujarati.
+
+📱 Google Play Store - Genres Explained:
+1. What are Genres?
+Categories within broader app categories
+Sub-categories that describe app functionality
+Tags that help users find specific types of apps
+
+
+🎮 GAME Genre Examples:
+├── Action
+├── Adventure  
+├── Puzzle
+├── Racing
+├── Sports
+└── Strategy
+
+🎨 ART_AND_DESIGN Genre Examples:
+├── Art & Design
+├── Creativity
+└── Photo Editing
+
+📱 BUSINESS Genre Examples:
+├── Business
+├── Finance
+├── Productivity
+└── Tools
+
+
+User Discovery: Helps users find specific app types
+Market Analysis: Shows which app types are popular
+Competition: Identifies crowded vs niche markets
+Trends: Reveals emerging app categories
+Genres = App sub-categories that describe what the app actually does! 🎯📱✨
