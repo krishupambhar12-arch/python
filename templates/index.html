@@ -432,8 +432,8 @@
                                     <p><strong>Graph 1 Rating Histogram:</strong> This graph shows the distribution of app ratings in the dataset. It helps understand how ratings are spread across applications such as how many apps have ratings near 4 or near 3.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand the frequency distribution of ratings.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -450,8 +450,8 @@
                                     <p><strong>Graph 2 Reviews Histogram:</strong> This graph shows the distribution of app reviews in the dataset. It helps understand how reviews are spread across applications.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand the frequency distribution of reviews.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -468,8 +468,8 @@
                                     <p><strong>Graph 3 Installs Histogram:</strong> This graph shows the distribution of the number of installs for apps.<br><strong>Function used:</strong> df[col].hist() with outlier removal<br><strong>Purpose:</strong> To understand how many apps have low installs and how many are highly installed.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -486,8 +486,8 @@
                                     <p><strong>Graph 4 Rating Boxplot:</strong> This boxplot visualizes the spread of ratings and detects outliers.<br><strong>Function used:</strong> df['Rating'].plot.box() with outlier removal<br><strong>Purpose:</strong> To analyze rating variability and identify extreme values.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -504,8 +504,8 @@
                                     <p><strong>Graph 5 Reviews Boxplot:</strong> This boxplot shows the distribution and outliers in the number of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.box() with outlier removal<br><strong>Purpose:</strong> To understand the range and extreme values in review counts.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -522,8 +522,8 @@
                                     <p><strong>Graph 6 Installs Boxplot:</strong> This graph shows the spread and outliers in installs.<br><strong>Function used:</strong> df['Installs'].plot.box() with outlier removal<br><strong>Purpose:</strong> To observe variation in install counts.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -540,8 +540,8 @@
                                     <p><strong>Graph 7 Category Bar Chart:</strong> This bar chart shows the top 10 most common app categories.<br><strong>Function used:</strong> df['Category'].value_counts().plot.bar()<br><strong>Purpose:</strong> To identify the most popular app categories.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -558,8 +558,8 @@
                                     <p><strong>Graph 8 Free vs Paid Pie Chart:</strong> This pie chart shows the percentage of free and paid apps.<br><strong>Function used:</strong> df['Type'].value_counts().plot.pie()<br><strong>Purpose:</strong> To understand the proportion of free versus paid applications.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -576,8 +576,8 @@
                                     <p><strong>Graph 9 Content Rating Bar Chart:</strong> This graph shows how many apps belong to each content rating category.<br><strong>Function used:</strong> df['Content Rating'].value_counts().plot.bar()<br><strong>Purpose:</strong> To analyze app distribution based on audience age group.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -594,8 +594,8 @@
                                     <p><strong>Graph 10 Sorted Rating Line Graph:</strong> This line graph shows ratings sorted from lowest to highest.<br><strong>Function used:</strong> plt.plot() with outlier removal<br><strong>Purpose:</strong> To visualize the overall rating trend.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -612,8 +612,8 @@
                                     <p><strong>Graph 11 Rating KDE Plot:</strong> This plot shows the probability density distribution of ratings.<br><strong>Function used:</strong> df['Rating'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To understand the smooth distribution of ratings.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -630,8 +630,8 @@
                                     <p><strong>Graph 12 Reviews KDE Plot:</strong> This graph displays the density distribution of reviews.<br><strong>Function used:</strong> df['Reviews'].plot.kde() with outlier removal<br><strong>Purpose:</strong> To analyze review density patterns.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -648,8 +648,8 @@
                                     <p><strong>Graph 13 First 20 Ratings Bar Chart:</strong> This bar chart shows ratings for the first 20 apps in the dataset.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To visualize a small sample of ratings.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -666,8 +666,8 @@
                                     <p><strong>Graph 14 First 20 Reviews Bar Chart:</strong> This graph displays the review counts of the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To view a small sample of review data.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -684,8 +684,8 @@
                                     <p><strong>Graph 15 First 20 Installs Bar Chart:</strong> This bar chart shows install numbers for the first 20 apps.<br><strong>Function used:</strong> plt.bar() with outlier removal<br><strong>Purpose:</strong> To observe install data for a small sample.</p>
                                     <!-- Navigation Buttons -->
                                     <div class="description-navigation">
-                                        <button class="nav-btn" id="univariate-prev-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
-                                        <button class="nav-btn" id="univariate-next-btn" onclick="navigateUnivariateGraph('next')">Next</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateUnivariateGraph('next')">Next</button>
                                     </div>
                                 </div>
                             </div>
@@ -708,12 +708,17 @@
                             <h3 class="chart-title">📊 Graph 16: Reviews vs Rating Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_16_reviews_rating_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 16 Reviews vs Rating Scatter Plot:</strong> This graph shows the relationship between reviews and ratings.</p>
                                     <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To see whether apps with more reviews tend to have higher ratings.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -723,12 +728,17 @@
                             <h3 class="chart-title">📊 Graph 17: Installs vs Rating Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_17_installs_rating_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 17 Installs vs Rating Scatter Plot:</strong> This graph shows the relationship between installs and ratings.</p>
                                     <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To analyze whether highly installed apps have better ratings.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -738,12 +748,17 @@
                             <h3 class="chart-title">📊 Graph 18: Installs vs Reviews Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_18_installs_reviews_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 18 Installs vs Reviews Scatter Plot:</strong> This plot shows the relationship between installs and reviews.</p>
                                     <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To check whether apps with more installs receive more reviews.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -753,12 +768,17 @@
                             <h3 class="chart-title">📊 Graph 19: Average Rating by Category</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_19_avg_rating_category.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 19 Average Rating by Category:</strong> This bar chart displays average rating for each app category.</p>
                                     <p><strong>Function used:</strong> groupby().plot.bar()</p>
                                     <p><strong>Purpose:</strong> To identify categories with higher average ratings.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -768,12 +788,17 @@
                             <h3 class="chart-title">📊 Graph 20: Rating by Type Boxplot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_20_rating_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 20 Rating by Type Boxplot:</strong> This compares ratings between free and paid apps.</p>
                                     <p><strong>Function used:</strong> df.boxplot()</p>
                                     <p><strong>Purpose:</strong> To analyze rating differences between free and paid applications.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -783,12 +808,17 @@
                             <h3 class="chart-title">📊 Graph 21: Reviews by Type Boxplot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_21_reviews_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 21 Reviews by Type Boxplot:</strong> This graph compares review counts between free and paid apps.</p>
                                     <p><strong>Function used:</strong> df.boxplot()</p>
                                     <p><strong>Purpose:</strong> To study user engagement differences.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -798,12 +828,17 @@
                             <h3 class="chart-title">📊 Graph 22: Installs by Type Boxplot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_22_installs_type_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 22 Installs by Type Boxplot:</strong> This graph compares install numbers between free and paid apps.</p>
                                     <p><strong>Function used:</strong> df.boxplot()</p>
                                     <p><strong>Purpose:</strong> To analyze download patterns.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -813,12 +848,17 @@
                             <h3 class="chart-title">📊 Graph 23: Hexbin Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_23_hexbin.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 23 Hexbin Plot:</strong> This plot shows density between installs and reviews.</p>
                                     <p><strong>Function used:</strong> plt.hexbin() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize data concentration in large datasets.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -828,12 +868,17 @@
                             <h3 class="chart-title">📊 Graph 24: 2D Histogram</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_24_2d_histogram.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 24 2D Histogram:</strong> This shows combined distribution of reviews and ratings.</p>
                                     <p><strong>Function used:</strong> plt.hist2d() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To observe density patterns between two variables.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -843,12 +888,17 @@
                             <h3 class="chart-title">📊 Graph 25: Seaborn Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_25_seaborn_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 25 Seaborn Scatter Plot:</strong> Advanced scatter visualization for reviews vs rating.</p>
                                     <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -858,12 +908,17 @@
                             <h3 class="chart-title">📊 Graph 26: Installs vs Rating Scatter</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_26_installs_rating_scatter_2.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 26 Installs vs Rating Scatter:</strong> Shows relationship between installs and ratings.</p>
                                     <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -873,12 +928,17 @@
                             <h3 class="chart-title">📊 Graph 27: Installs vs Reviews Scatter</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_27_installs_reviews_scatter_2.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 27 Installs vs Reviews Scatter:</strong> Shows relationship between installs and reviews.</p>
                                     <p><strong>Function used:</strong> sns.scatterplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize relationships with better aesthetics.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -888,12 +948,17 @@
                             <h3 class="chart-title">📊 Graph 28: Regression Reviews vs Rating</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_28_regression_reviews_rating.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 28 Regression Reviews vs Rating:</strong> This plot shows trend line between reviews and ratings.</p>
                                     <p><strong>Function used:</strong> sns.regplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To identify linear relationships.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -903,21 +968,20 @@
                             <h3 class="chart-title">📊 Graph 29: Regression Installs vs Rating</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_29_regression_installs_rating.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 29 Regression Installs vs Rating:</strong> Shows trend between installs and ratings.</p>
                                     <p><strong>Function used:</strong> sns.regplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To identify linear relationships.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateBivariateGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Navigation Buttons -->
-                    <div class="graph-navigation">
-                        <button class="nav-btn" id="bivariate-prev-btn" onclick="navigateBivariateGraph('prev')">Previous</button>
-                        <button class="nav-btn" id="bivariate-next-btn" onclick="navigateBivariateGraph('next')">Next</button>
                     </div>
                 </div>
             </div>
@@ -936,12 +1000,17 @@
                             <h3 class="chart-title">📊 Graph 30: Rating Distribution</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_30_rating_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 30 Rating Distribution:</strong> Histogram with density curve showing rating distribution.</p>
                                     <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To analyze rating distribution.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -951,12 +1020,17 @@
                             <h3 class="chart-title">📊 Graph 31: Reviews Distribution</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_31_reviews_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 31 Reviews Distribution:</strong> Shows how reviews are distributed.</p>
                                     <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To analyze review distribution patterns.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -966,12 +1040,17 @@
                             <h3 class="chart-title">📊 Graph 32: Installs Distribution</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_32_installs_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 32 Installs Distribution:</strong> Shows install count distribution.</p>
                                     <p><strong>Function used:</strong> sns.histplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To analyze install distribution patterns.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -981,21 +1060,20 @@
                             <h3 class="chart-title">📊 Graph 33: Rating Boxplot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_33_rating_boxplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 33 Rating Boxplot:</strong> Displays rating spread and outliers.</p>
                                     <p><strong>Function used:</strong> sns.boxplot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To analyze rating variability and identify outliers.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateDistributionGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Navigation Buttons -->
-                    <div class="graph-navigation">
-                        <button class="nav-btn" id="distribution-prev-btn" onclick="navigateDistributionGraph('prev')">Previous</button>
-                        <button class="nav-btn" id="distribution-next-btn" onclick="navigateDistributionGraph('next')">Next</button>
                     </div>
                 </div>
             </div>
@@ -1014,12 +1092,17 @@
                             <h3 class="chart-title">🔥 Graph 34: Correlation Heatmap</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_34_correlation_heatmap.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 34 Correlation Heatmap:</strong> Shows correlation between rating reviews and installs.</p>
                                     <p><strong>Function used:</strong> sns.heatmap()</p>
                                     <p><strong>Purpose:</strong> To measure strength of relationships.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1029,12 +1112,17 @@
                             <h3 class="chart-title">🔥 Graph 35: Pairplot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_35_pairplot.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 35 Pairplot:</strong> Shows pairwise relationships among variables.</p>
                                     <p><strong>Function used:</strong> sns.pairplot()</p>
                                     <p><strong>Purpose:</strong> To visualize multiple relationships at once.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1044,21 +1132,20 @@
                             <h3 class="chart-title">🔥 Graph 36: Correlation Matrix</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_36_correlation_matrix.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 36 Correlation Matrix:</strong> Another visual representation of correlation values.</p>
                                     <p><strong>Function used:</strong> plt.imshow() with value annotations</p>
                                     <p><strong>Purpose:</strong> To display correlation matrix visually.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateCorrelationGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Navigation Buttons -->
-                    <div class="graph-navigation">
-                        <button class="nav-btn" id="correlation-prev-btn" onclick="navigateCorrelationGraph('prev')">Previous</button>
-                        <button class="nav-btn" id="correlation-next-btn" onclick="navigateCorrelationGraph('next')">Next</button>
                     </div>
                 </div>
             </div>
@@ -1077,12 +1164,17 @@
                             <h3 class="chart-title">🤖 Graph 37: Linear Regression</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_37_linear_regression.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 37 Linear Regression:</strong> Shows predicted regression line between reviews and rating.</p>
                                     <p><strong>Function used:</strong> LinearRegression, plt.scatter, plt.plot with outlier removal</p>
                                     <p><strong>Purpose:</strong> To predict ratings using reviews.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1092,12 +1184,17 @@
                             <h3 class="chart-title">🤖 Graph 38: Prediction Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_38_prediction_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 38 Prediction Scatter Plot:</strong> Shows predicted ratings as points.</p>
                                     <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize prediction results.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1107,12 +1204,17 @@
                             <h3 class="chart-title">🤖 Graph 39: Actual Values Scatter Plot</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_39_actual_scatter.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 39 Actual Values Scatter Plot:</strong> Displays actual rating values.</p>
                                     <p><strong>Function used:</strong> plt.scatter() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To compare actual and predicted results.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1122,12 +1224,17 @@
                             <h3 class="chart-title">🤖 Graph 40: KMeans Clustering</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_40_kmeans_clustering.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 40 KMeans Clustering:</strong> Groups apps into clusters based on installs and reviews.</p>
                                     <p><strong>Function used:</strong> KMeans() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To identify similar groups of apps.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1137,12 +1244,17 @@
                             <h3 class="chart-title">🤖 Graph 41: Prediction Distribution</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_41_prediction_distribution.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 41 Prediction Distribution:</strong> Shows distribution of predicted ratings.</p>
                                     <p><strong>Function used:</strong> plt.hist() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To understand prediction spread.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1152,21 +1264,20 @@
                             <h3 class="chart-title">🤖 Graph 42: Prediction Trend</h3>
                             <div class="chart-content">
                                 <div class="chart-container">
-                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_1_rating_histogram.png" alt="Rating Histogram">
+                                    <img id="graph-1" class="dynamic-graph" src="/graphs/graph_42_prediction_trend.png" alt="Rating Histogram">
                                 </div>
                                 <div class="chart-description">
                                     <p><strong>Graph 42 Prediction Trend:</strong> Line graph showing prediction pattern for first 50 values.</p>
                                     <p><strong>Function used:</strong> plt.plot() with outlier removal</p>
                                     <p><strong>Purpose:</strong> To visualize prediction trend.</p>
+                                    <!-- Navigation Buttons -->
+                                    <div class="description-navigation">
+                                        <button class="nav-btn" onclick="navigateMLGraph('prev')">Previous</button>
+                                        <button class="nav-btn" onclick="navigateMLGraph('next')">Next</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <!-- Navigation Buttons -->
-                    <div class="graph-navigation">
-                        <button class="nav-btn" id="machine-learning-prev-btn" onclick="navigateMLGraph('prev')">Previous</button>
-                        <button class="nav-btn" id="machine-learning-next-btn" onclick="navigateMLGraph('next')">Next</button>
                     </div>
                 </div>
             </div>
@@ -1218,19 +1329,42 @@
         updateUnivariateButtonStates();
 
         // Keyboard Arrow Key Navigation
-        document.addEventListener('keydown', (event) => {
-            // Check if we're in the Univariate Analysis tab
-            const univariateTab = document.getElementById('univariate');
-            if (univariateTab && univariateTab.classList.contains('active')) {
-                if (event.key === 'ArrowRight') {
-                    event.preventDefault();
-                    navigateUnivariateGraph('next');
-                } else if (event.key === 'ArrowLeft') {
-                    event.preventDefault();
-                    navigateUnivariateGraph('prev');
-                }
-            }
-        });
+document.addEventListener('keydown', function(event) {
+    const univariateTab = document.getElementById('univariate');
+
+    if (!univariateTab || !univariateTab.classList.contains('active')) return;
+
+    if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        navigateUnivariateGraph('next');
+    } 
+    else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        navigateUnivariateGraph('prev');
+    }
+});
+
+// SINGLE key handler (IMPORTANT)
+function handleKeyNav(event) {
+    const univariateTab = document.getElementById('univariate');
+
+    if (!univariateTab || !univariateTab.classList.contains('active')) return;
+
+    if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        navigateUnivariateGraph(1);
+    } 
+    else if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        navigateUnivariateGraph(-1);
+    }
+}
+
+// ✅ ensure ONLY ONE listener exists
+document.onkeydown = handleKeyNav;
+
+// initial load
+showGraph(currentIndex);
 
 
 

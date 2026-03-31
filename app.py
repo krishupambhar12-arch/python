@@ -42,12 +42,14 @@ if not os.path.exists('graphs'):
 # Graph 1: Rating Histogram
 def create_graph_1(df):
     plt.figure(figsize=(8, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
-    rating_data.hist(bins=20, range=(1, 5), color='skyblue', edgecolor='black')
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
+    rating_data.hist(bins=20, range=(3, 5), color='skyblue', edgecolor='black')
     plt.title("Graph 1: Rating Histogram")
     plt.xlabel("Rating")
     plt.ylabel("Frequency")
-    plt.xlim(1, 5)
+    plt.xlim(3, 5)
     plt.grid(True, alpha=0.3)
     
     # Save to graphs folder
@@ -59,10 +61,19 @@ def create_graph_2(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     reviews_data = df[df['Reviews'] <= reviews_threshold]['Reviews']
-    reviews_data.hist(bins=30, color='lightgreen', edgecolor='black')
-    plt.title("Graph 2: Reviews Histogram")
-    plt.xlabel("Reviews")
+    
+    # Normalize reviews data to fit in 0-5 range
+    # Use log scale to compress large values
+    normalized_reviews = np.log1p(reviews_data)  # log1p handles log(0) case
+    # Scale to fit 0-5 range
+    max_normalized = normalized_reviews.max()
+    scaled_reviews = (normalized_reviews / max_normalized) * 5
+    
+    scaled_reviews.hist(bins=30, color='lightgreen', edgecolor='black')
+    plt.title("Graph 2: Reviews Histogram (Normalized 0-5)")
+    plt.xlabel("Reviews (Normalized)")
     plt.ylabel("Frequency")
+    plt.xlim(0, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_2_reviews_histogram.png', dpi=100, bbox_inches='tight')
@@ -73,10 +84,19 @@ def create_graph_3(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
     installs_data = df[df['Installs'] <= installs_threshold]['Installs']
-    installs_data.hist(bins=30, color='orange', edgecolor='black')
-    plt.title("Graph 3: Installs Histogram")
-    plt.xlabel("Installs")
+    
+    # Normalize installs data to fit in 0-5 range
+    # Use log scale to compress large values
+    normalized_installs = np.log1p(installs_data)  # log1p handles log(0) case
+    # Scale to fit 0-5 range
+    max_normalized = normalized_installs.max()
+    scaled_installs = (normalized_installs / max_normalized) * 5
+    
+    scaled_installs.hist(bins=30, color='orange', edgecolor='black')
+    plt.title("Graph 3: Installs Histogram (Normalized 0-5)")
+    plt.xlabel("Installs (Normalized)")
     plt.ylabel("Frequency")
+    plt.xlim(0, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_3_installs_histogram.png', dpi=100, bbox_inches='tight')
@@ -85,10 +105,12 @@ def create_graph_3(df):
 # Graph 4: Rating Boxplot
 def create_graph_4(df):
     plt.figure(figsize=(8, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
     rating_data.plot.box()
     plt.title("Graph 4: Rating Boxplot")
-    plt.ylim(1, 5)
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_4_rating_boxplot.png', dpi=100, bbox_inches='tight')
@@ -99,8 +121,13 @@ def create_graph_5(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     reviews_data = df[df['Reviews'] <= reviews_threshold]['Reviews']
-    reviews_data.plot.box()
-    plt.title("Graph 5: Reviews Boxplot")
+    
+    # Normalize reviews data to handle large values
+    # Use log scale to compress large values
+    normalized_reviews = np.log1p(reviews_data)  # log1p handles log(0) case
+    normalized_reviews.plot.box()
+    plt.title("Graph 5: Reviews Boxplot (Log Normalized)")
+    plt.ylabel("Reviews (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_5_reviews_boxplot.png', dpi=100, bbox_inches='tight')
@@ -111,8 +138,13 @@ def create_graph_6(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
     installs_data = df[df['Installs'] <= installs_threshold]['Installs']
-    installs_data.plot.box()
-    plt.title("Graph 6: Installs Boxplot")
+    
+    # Normalize installs data to handle large values
+    # Use log scale to compress large values
+    normalized_installs = np.log1p(installs_data)  # log1p handles log(0) case
+    normalized_installs.plot.box()
+    plt.title("Graph 6: Installs Boxplot (Log Normalized)")
+    plt.ylabel("Installs (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_6_installs_boxplot.png', dpi=100, bbox_inches='tight')
@@ -121,7 +153,12 @@ def create_graph_6(df):
 # Graph 7: Category Bar Chart
 def create_graph_7(df):
     plt.figure(figsize=(10, 6))
-    df["Category"].value_counts().head(10).plot.bar(color="green")
+    # Remove outliers using 95th percentile for categories (filter out very rare categories)
+    category_counts = df["Category"].value_counts()
+    # Keep categories that have at least some minimum apps (remove outliers)
+    threshold = category_counts.quantile(0.05)  # Remove bottom 5% rare categories
+    valid_categories = category_counts[category_counts >= threshold]
+    valid_categories.head(10).plot.bar(color="green")
     plt.title("Graph 7: Category Bar Chart")
     plt.xlabel("Category")
     plt.ylabel("Count")
@@ -134,7 +171,9 @@ def create_graph_7(df):
 # Graph 8: Free vs Paid Pie Chart
 def create_graph_8(df):
     plt.figure(figsize=(8, 8))
-    df["Type"].value_counts().plot.pie(autopct="%1.1f%%", legend=True)
+    # Remove outliers by filtering out invalid types
+    type_data = df[df['Type'].isin(['Free', 'Paid'])]["Type"].value_counts()
+    type_data.plot.pie(autopct="%1.1f%%", legend=True)
     plt.title("Graph 8: Free vs Paid")
     plt.ylabel("")
     
@@ -144,7 +183,15 @@ def create_graph_8(df):
 # Graph 9: Content Rating Bar Chart
 def create_graph_9(df):
     plt.figure(figsize=(10, 6))
-    df["Content Rating"].value_counts().plot.bar(color='purple')
+    # Remove outliers by filtering valid content ratings and keeping top ones
+    valid_ratings = ['Everyone', 'Teen', 'Mature 17+', 'Everyone 10+', 'Adults only 18+']
+    rating_data = df[df['Content Rating'].isin(valid_ratings)]["Content Rating"].value_counts()
+    
+    # Filter out categories with very low counts (remove outliers)
+    min_count_threshold = rating_data.quantile(0.2)  # Remove bottom 20% as outliers
+    filtered_ratings = rating_data[rating_data >= min_count_threshold]
+    
+    filtered_ratings.plot.bar(color='purple')
     plt.title("Graph 9: Content Rating Count")
     plt.xlabel("Content Rating")
     plt.ylabel("Count")
@@ -157,12 +204,14 @@ def create_graph_9(df):
 # Graph 10: Sorted Rating Line Graph
 def create_graph_10(df):
     plt.figure(figsize=(10, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
     plt.plot(rating_data.sort_values().values, color='red')
-    plt.title("Graph 10: Sorted Rating")
-    plt.xlabel("Index")
+    plt.title("Graph 10: Sorted Rating Line Graph")
+    plt.xlabel("App Index")
     plt.ylabel("Rating")
-    plt.ylim(1, 5)
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_10_sorted_rating_line.png', dpi=100, bbox_inches='tight')
@@ -171,11 +220,14 @@ def create_graph_10(df):
 # Graph 11: Rating KDE Plot
 def create_graph_11(df):
     plt.figure(figsize=(8, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
     rating_data.plot.kde()
-    plt.title("Graph 11: Rating KDE")
+    plt.title("Graph 11: Rating KDE Plot")
     plt.xlabel("Rating")
-    plt.xlim(1, 5)
+    plt.ylabel("Density")
+    plt.xlim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_11_rating_kde.png', dpi=100, bbox_inches='tight')
@@ -186,9 +238,13 @@ def create_graph_12(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     reviews_data = df[df['Reviews'] <= reviews_threshold]['Reviews']
-    reviews_data.plot.kde()
-    plt.title("Graph 12: Reviews KDE")
-    plt.xlabel("Reviews")
+    
+    # Normalize reviews data to handle large values
+    # Use log scale to compress large values
+    normalized_reviews = np.log1p(reviews_data)  # log1p handles log(0) case
+    normalized_reviews.plot.kde()
+    plt.title("Graph 12: Reviews KDE (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_12_reviews_kde.png', dpi=100, bbox_inches='tight')
@@ -197,7 +253,9 @@ def create_graph_12(df):
 # Graph 13: First 20 Ratings Bar Chart
 def create_graph_13(df):
     plt.figure(figsize=(10, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating'].head(20)
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= rating_threshold)]['Rating'].head(20)
     plt.bar(range(20), rating_data, color='brown')
     plt.title("Graph 13: First 20 Ratings")
     plt.xlabel("App Index")
@@ -213,24 +271,32 @@ def create_graph_14(df):
     plt.figure(figsize=(10, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     reviews_data = df[df['Reviews'] <= reviews_threshold]['Reviews'].head(20)
-    plt.bar(range(20), reviews_data, color='navy')
-    plt.title("Graph 14: First 20 Reviews")
+    
+    # Normalize reviews data to handle large values
+    # Use log scale to compress large values
+    normalized_reviews = np.log1p(reviews_data)  # log1p handles log(0) case
+    plt.bar(range(20), normalized_reviews, color='navy')
+    plt.title("Graph 14: First 20 Reviews (Log Normalized)")
     plt.xlabel("App Index")
-    plt.ylabel("Reviews")
+    plt.ylabel("Reviews (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_14_first_20_reviews.png', dpi=100, bbox_inches='tight')
     plt.close()
 
 # Graph 15: First 20 Installs Bar Chart
-def create_graph_15(df):
+def create_graph_15(df): 
     plt.figure(figsize=(10, 6))
     installs_threshold = df['Installs'].quantile(0.95)
     installs_data = df[df['Installs'] <= installs_threshold]['Installs'].head(20)
-    plt.bar(range(20), installs_data, color='darkgreen')
-    plt.title("Graph 15: First 20 Installs")
+    
+    # Normalize installs data to handle large values
+    # Use log scale to compress large values
+    normalized_installs = np.log1p(installs_data)  # log1p handles log(0) case
+    plt.bar(range(20), normalized_installs, color='darkgreen')
+    plt.title("Graph 15: First 20 Installs (Log Normalized)")
     plt.xlabel("App Index")
-    plt.ylabel("Installs")
+    plt.ylabel("Installs (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_15_first_20_installs.png', dpi=100, bbox_inches='tight')
@@ -242,11 +308,15 @@ def create_graph_15(df):
 def create_graph_16(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    plt.scatter(df_filtered['Reviews'], df_filtered['Rating'], alpha=0.6, color='blue')
-    plt.title("Graph 16: Reviews vs Rating Scatter Plot")
-    plt.xlabel("Reviews")
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Normalize reviews data to handle large values
+    normalized_reviews = np.log1p(df_filtered['Reviews'])
+    plt.scatter(normalized_reviews, df_filtered['Rating'], alpha=0.6, color='blue')
+    plt.title("Graph 16: Reviews vs Rating Scatter Plot (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.ylabel("Rating")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_16_reviews_rating_scatter.png', dpi=100, bbox_inches='tight')
@@ -256,11 +326,15 @@ def create_graph_16(df):
 def create_graph_17(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
-    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    plt.scatter(df_filtered['Installs'], df_filtered['Rating'], alpha=0.6, color='green')
-    plt.title("Graph 17: Installs vs Rating Scatter Plot")
-    plt.xlabel("Installs")
+    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Normalize installs data to handle large values
+    normalized_installs = np.log1p(df_filtered['Installs'])
+    plt.scatter(normalized_installs, df_filtered['Rating'], alpha=0.6, color='green')
+    plt.title("Graph 17: Installs vs Rating Scatter Plot (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
     plt.ylabel("Rating")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_17_installs_rating_scatter.png', dpi=100, bbox_inches='tight')
@@ -272,10 +346,14 @@ def create_graph_18(df):
     installs_threshold = df['Installs'].quantile(0.95)
     reviews_threshold = df['Reviews'].quantile(0.95)
     df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Reviews'] <= reviews_threshold)]
-    plt.scatter(df_filtered['Installs'], df_filtered['Reviews'], alpha=0.6, color='purple')
-    plt.title("Graph 18: Installs vs Reviews Scatter Plot")
-    plt.xlabel("Installs")
-    plt.ylabel("Reviews")
+    
+    # Normalize both installs and reviews data to handle large values
+    normalized_installs = np.log1p(df_filtered['Installs'])
+    normalized_reviews = np.log1p(df_filtered['Reviews'])
+    plt.scatter(normalized_installs, normalized_reviews, alpha=0.6, color='purple')
+    plt.title("Graph 18: Installs vs Reviews Scatter Plot (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
+    plt.ylabel("Reviews (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_18_installs_reviews_scatter.png', dpi=100, bbox_inches='tight')
@@ -284,7 +362,10 @@ def create_graph_18(df):
 # Graph 19: Average Rating by Category
 def create_graph_19(df):
     plt.figure(figsize=(12, 6))
-    avg_rating_by_category = df.groupby('Category')['Rating'].mean().sort_values(ascending=False).head(10)
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    df_filtered = df[df['Rating'] <= rating_threshold]
+    avg_rating_by_category = df_filtered.groupby('Category')['Rating'].mean().sort_values(ascending=False).head(10)
     avg_rating_by_category.plot.bar(color='teal')
     plt.title("Graph 19: Average Rating by Category")
     plt.xlabel("Category")
@@ -299,12 +380,15 @@ def create_graph_19(df):
 # Graph 20: Rating by Type Boxplot
 def create_graph_20(df):
     plt.figure(figsize=(8, 6))
-    df.boxplot(column='Rating', by='Type', grid=False)
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    df_filtered = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]
+    df_filtered.boxplot(column='Rating', by='Type', grid=False)
     plt.title("Graph 20: Rating by Type Boxplot")
+    plt.ylim(3, 5)
     plt.suptitle("")
     plt.xlabel("Type")
     plt.ylabel("Rating")
-    plt.ylim(1, 5)
     
     plt.savefig('graphs/graph_20_rating_type_boxplot.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -314,11 +398,15 @@ def create_graph_21(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     df_filtered = df[df['Reviews'] <= reviews_threshold]
-    df_filtered.boxplot(column='Reviews', by='Type', grid=False)
-    plt.title("Graph 21: Reviews by Type Boxplot")
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    df_filtered_copy.boxplot(column='Reviews', by='Type', grid=False)
+    plt.title("Graph 21: Reviews by Type Boxplot (Log Normalized)")
     plt.suptitle("")
     plt.xlabel("Type")
-    plt.ylabel("Reviews")
+    plt.ylabel("Reviews (Log Normalized)")
     
     plt.savefig('graphs/graph_21_reviews_type_boxplot.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -328,11 +416,15 @@ def create_graph_22(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
     df_filtered = df[df['Installs'] <= installs_threshold]
-    df_filtered.boxplot(column='Installs', by='Type', grid=False)
-    plt.title("Graph 22: Installs by Type Boxplot")
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    df_filtered_copy.boxplot(column='Installs', by='Type', grid=False)
+    plt.title("Graph 22: Installs by Type Boxplot (Log Normalized)")
     plt.suptitle("")
     plt.xlabel("Type")
-    plt.ylabel("Installs")
+    plt.ylabel("Installs (Log Normalized)")
     
     plt.savefig('graphs/graph_22_installs_type_boxplot.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -343,10 +435,14 @@ def create_graph_23(df):
     reviews_threshold = df['Reviews'].quantile(0.95)
     installs_threshold = df['Installs'].quantile(0.95)
     df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Installs'] <= installs_threshold)]
-    plt.hexbin(df_filtered['Reviews'], df_filtered['Installs'], gridsize=20, cmap='Blues')
-    plt.title("Graph 23: Hexbin Plot")
-    plt.xlabel("Reviews")
-    plt.ylabel("Installs")
+    
+    # Apply log normalization to handle large values
+    normalized_reviews = np.log1p(df_filtered['Reviews'])
+    normalized_installs = np.log1p(df_filtered['Installs'])
+    plt.hexbin(normalized_reviews, normalized_installs, gridsize=20, cmap='Blues')
+    plt.title("Graph 23: Hexbin Plot (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
+    plt.ylabel("Installs (Log Normalized)")
     plt.colorbar()
     
     plt.savefig('graphs/graph_23_hexbin.png', dpi=100, bbox_inches='tight')
@@ -358,10 +454,14 @@ def create_graph_24(df):
     reviews_threshold = df['Reviews'].quantile(0.95)
     installs_threshold = df['Installs'].quantile(0.95)
     df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Installs'] <= installs_threshold)]
-    plt.hist2d(df_filtered['Reviews'], df_filtered['Installs'], bins=20, cmap='viridis')
-    plt.title("Graph 24: 2D Histogram")
-    plt.xlabel("Reviews")
-    plt.ylabel("Installs")
+    
+    # Apply log normalization to handle large values
+    normalized_reviews = np.log1p(df_filtered['Reviews'])
+    normalized_installs = np.log1p(df_filtered['Installs'])
+    plt.hist2d(normalized_reviews, normalized_installs, bins=20, cmap='viridis')
+    plt.title("Graph 24: 2D Histogram (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
+    plt.ylabel("Installs (Log Normalized)")
     plt.colorbar()
     
     plt.savefig('graphs/graph_24_2d_histogram.png', dpi=100, bbox_inches='tight')
@@ -371,9 +471,15 @@ def create_graph_24(df):
 def create_graph_25(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    sns.scatterplot(data=df_filtered, x='Reviews', y='Rating', alpha=0.6)
-    plt.title("Graph 25: Seaborn Scatter Plot")
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    sns.scatterplot(data=df_filtered_copy, x='Reviews', y='Rating', alpha=0.6)
+    plt.title("Graph 25: Seaborn Scatter Plot (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_25_seaborn_scatter.png', dpi=100, bbox_inches='tight')
@@ -383,9 +489,15 @@ def create_graph_25(df):
 def create_graph_26(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
-    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    sns.scatterplot(data=df_filtered, x='Installs', y='Rating', alpha=0.6, color='orange')
-    plt.title("Graph 26: Installs vs Rating Scatter")
+    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    sns.scatterplot(data=df_filtered_copy, x='Installs', y='Rating', alpha=0.6, color='orange')
+    plt.title("Graph 26: Installs vs Rating Scatter (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_26_installs_rating_scatter_2.png', dpi=100, bbox_inches='tight')
@@ -397,8 +509,15 @@ def create_graph_27(df):
     installs_threshold = df['Installs'].quantile(0.95)
     reviews_threshold = df['Reviews'].quantile(0.95)
     df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Reviews'] <= reviews_threshold)]
-    sns.scatterplot(data=df_filtered, x='Installs', y='Reviews', alpha=0.6, color='red')
-    plt.title("Graph 27: Installs vs Reviews Scatter")
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    sns.scatterplot(data=df_filtered_copy, x='Installs', y='Reviews', alpha=0.6, color='red')
+    plt.title("Graph 27: Installs vs Reviews Scatter (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
+    plt.ylabel("Reviews (Log Normalized)")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_27_installs_reviews_scatter_2.png', dpi=100, bbox_inches='tight')
@@ -408,9 +527,15 @@ def create_graph_27(df):
 def create_graph_28(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    sns.regplot(data=df_filtered, x='Reviews', y='Rating', scatter_kws={'alpha':0.6})
-    plt.title("Graph 28: Regression Reviews vs Rating")
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    sns.regplot(data=df_filtered_copy, x='Reviews', y='Rating', scatter_kws={'alpha':0.6}, line_kws={'color': 'red'})
+    plt.title("Graph 28: Regression Reviews vs Rating (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_28_regression_reviews_rating.png', dpi=100, bbox_inches='tight')
@@ -420,9 +545,15 @@ def create_graph_28(df):
 def create_graph_29(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
-    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    sns.regplot(data=df_filtered, x='Installs', y='Rating', scatter_kws={'alpha':0.6}, color='green')
-    plt.title("Graph 29: Regression Installs vs Rating")
+    df_filtered = df[(df['Installs'] <= installs_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    sns.regplot(data=df_filtered_copy, x='Installs', y='Rating', scatter_kws={'alpha':0.6}, line_kws={'color': 'red'})
+    plt.title("Graph 29: Regression Installs vs Rating (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_29_regression_installs_rating.png', dpi=100, bbox_inches='tight')
@@ -433,12 +564,14 @@ def create_graph_29(df):
 # Graph 30: Rating Distribution (Seaborn)
 def create_graph_30(df):
     plt.figure(figsize=(8, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
-    sns.histplot(data=rating_data, kde=True, bins=20, color='skyblue')
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
+    sns.histplot(data=rating_data, kde=True, bins=20, color='skyblue', line_kws={'color': 'darkblue'})
     plt.title("Graph 30: Rating Distribution")
     plt.xlabel("Rating")
     plt.ylabel("Frequency")
-    plt.xlim(1, 5)
+    plt.xlim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_30_rating_distribution.png', dpi=100, bbox_inches='tight')
@@ -449,9 +582,12 @@ def create_graph_31(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
     reviews_data = df[df['Reviews'] <= reviews_threshold]['Reviews']
-    sns.histplot(data=reviews_data, kde=True, bins=30, color='lightgreen')
-    plt.title("Graph 31: Reviews Distribution")
-    plt.xlabel("Reviews")
+    
+    # Apply log normalization to handle large values
+    normalized_reviews = np.log1p(reviews_data)
+    sns.histplot(data=normalized_reviews, kde=True, bins=30, color='lightgreen', line_kws={'color': 'darkgreen'})
+    plt.title("Graph 31: Reviews Distribution (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.ylabel("Frequency")
     plt.grid(True, alpha=0.3)
     
@@ -463,23 +599,28 @@ def create_graph_32(df):
     plt.figure(figsize=(8, 6))
     installs_threshold = df['Installs'].quantile(0.95)
     installs_data = df[df['Installs'] <= installs_threshold]['Installs']
-    sns.histplot(data=installs_data, kde=True, bins=30, color='orange')
-    plt.title("Graph 32: Installs Distribution")
-    plt.xlabel("Installs")
+    
+    # Apply log normalization to handle large values
+    normalized_installs = np.log1p(installs_data)
+    sns.histplot(data=normalized_installs, kde=True, bins=30, color='orange', line_kws={'color': 'darkorange'})
+    plt.title("Graph 32: Installs Distribution (Log Normalized)")
+    plt.xlabel("Installs (Log Normalized)")
     plt.ylabel("Frequency")
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_32_installs_distribution.png', dpi=100, bbox_inches='tight')
     plt.close()
 
-# Graph 33: Rating Boxplot (Seaborn)
+# Graph 33: Rating Boxplot
 def create_graph_33(df):
     plt.figure(figsize=(8, 6))
-    rating_data = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]['Rating']
+    # Remove outliers using 95th percentile for Rating
+    rating_threshold = df['Rating'].quantile(0.95)
+    rating_data = df[(df['Rating'] >= 3) & (df['Rating'] <= rating_threshold)]['Rating']
     sns.boxplot(data=rating_data, color='purple')
     plt.title("Graph 33: Rating Boxplot")
     plt.ylabel("Rating")
-    plt.ylim(1, 5)
+    plt.ylim(3, 5)
     plt.grid(True, alpha=0.3)
     
     plt.savefig('graphs/graph_33_rating_boxplot.png', dpi=100, bbox_inches='tight')
@@ -490,9 +631,21 @@ def create_graph_33(df):
 # Graph 34: Correlation Heatmap
 def create_graph_34(df):
     plt.figure(figsize=(8, 6))
-    correlation_data = df[['Rating', 'Reviews', 'Installs']].corr()
+    # Apply outlier removal and log normalization
+    reviews_threshold = df['Reviews'].quantile(0.95)
+    installs_threshold = df['Installs'].quantile(0.95)
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & 
+                    (df['Installs'] <= installs_threshold) & 
+                    (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    
+    correlation_data = df_filtered_copy[['Rating', 'Reviews', 'Installs']].corr()
     sns.heatmap(correlation_data, annot=True, cmap='coolwarm', center=0)
-    plt.title("Graph 34: Correlation Heatmap")
+    plt.title("Graph 34: Correlation Heatmap (Log Normalized)")
     
     plt.savefig('graphs/graph_34_correlation_heatmap.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -500,10 +653,21 @@ def create_graph_34(df):
 # Graph 35: Pairplot
 def create_graph_35(df):
     plt.figure(figsize=(10, 10))
-    df_filtered = df[(df['Rating'] >= 1) & (df['Rating'] <= 5)]
-    df_sample = df_filtered[['Rating', 'Reviews', 'Installs']].sample(min(500, len(df_filtered)))
+    # Apply outlier removal and log normalization
+    reviews_threshold = df['Reviews'].quantile(0.95)
+    installs_threshold = df['Installs'].quantile(0.95)
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & 
+                    (df['Installs'] <= installs_threshold) & 
+                    (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    
+    df_sample = df_filtered_copy[['Rating', 'Reviews', 'Installs']].sample(min(500, len(df_filtered_copy)))
     sns.pairplot(df_sample)
-    plt.suptitle("Graph 35: Pairplot", y=1.02)
+    plt.suptitle("Graph 35: Pairplot (Log Normalized)", y=1.02)
     
     plt.savefig('graphs/graph_35_pairplot.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -511,7 +675,19 @@ def create_graph_35(df):
 # Graph 36: Correlation Matrix
 def create_graph_36(df):
     plt.figure(figsize=(8, 6))
-    correlation_data = df[['Rating', 'Reviews', 'Installs']].corr()
+    # Apply outlier removal and log normalization
+    reviews_threshold = df['Reviews'].quantile(0.95)
+    installs_threshold = df['Installs'].quantile(0.95)
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & 
+                    (df['Installs'] <= installs_threshold) & 
+                    (df['Rating'] >= 3) & (df['Rating'] <= 5)]
+    
+    # Apply log normalization
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    
+    correlation_data = df_filtered_copy[['Rating', 'Reviews', 'Installs']].corr()
     plt.imshow(correlation_data, cmap='coolwarm', aspect='auto', vmin=-1, vmax=1)
     plt.colorbar()
     plt.xticks(range(len(correlation_data.columns)), correlation_data.columns, rotation=45)
@@ -523,7 +699,7 @@ def create_graph_36(df):
             plt.text(j, i, f'{correlation_data.iloc[i, j]:.2f}', 
                     ha='center', va='center', color='black')
     
-    plt.title("Graph 36: Correlation Matrix")
+    plt.title("Graph 36: Correlation Matrix (Log Normalized)")
     
     plt.savefig('graphs/graph_36_correlation_matrix.png', dpi=100, bbox_inches='tight')
     plt.close()
@@ -534,19 +710,24 @@ def create_graph_36(df):
 def create_graph_37(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
     
-    X = df_filtered[['Reviews']].values
-    y = df_filtered['Rating'].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    
+    X = df_filtered_copy[['Reviews']].values
+    y = df_filtered_copy['Rating'].values
     
     model = LinearRegression()
     model.fit(X, y)
     
     plt.scatter(X, y, alpha=0.6, color='blue', label='Data points')
     plt.plot(X, model.predict(X), color='red', linewidth=2, label='Regression line')
-    plt.title("Graph 37: Linear Regression")
-    plt.xlabel("Reviews")
+    plt.title("Graph 37: Linear Regression (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.ylabel("Rating")
+    plt.ylim(3, 5)
     plt.legend()
     plt.grid(True, alpha=0.3)
     
@@ -557,19 +738,24 @@ def create_graph_37(df):
 def create_graph_38(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
     
-    X = df_filtered[['Reviews']].values
-    y = df_filtered['Rating'].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    
+    X = df_filtered_copy[['Reviews']].values
+    y = df_filtered_copy['Rating'].values
     
     model = LinearRegression()
     model.fit(X, y)
     y_pred = model.predict(X)
     
     plt.scatter(X, y_pred, alpha=0.6, color='green', label='Predicted')
-    plt.title("Graph 38: Prediction Scatter Plot")
-    plt.xlabel("Reviews")
+    plt.title("Graph 38: Prediction Scatter Plot (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.ylabel("Predicted Rating")
+    plt.ylim(3, 5)
     plt.legend()
     plt.grid(True, alpha=0.3)
     
@@ -580,10 +766,14 @@ def create_graph_38(df):
 def create_graph_39(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
     
-    X = df_filtered[['Reviews']].values
-    y = df_filtered['Rating'].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    
+    X = df_filtered_copy[['Reviews']].values
+    y = df_filtered_copy['Rating'].values
     
     model = LinearRegression()
     model.fit(X, y)
@@ -591,9 +781,10 @@ def create_graph_39(df):
     
     plt.scatter(X, y, alpha=0.6, color='blue', label='Actual')
     plt.scatter(X, y_pred, alpha=0.6, color='red', label='Predicted')
-    plt.title("Graph 39: Actual Values Scatter Plot")
-    plt.xlabel("Reviews")
+    plt.title("Graph 39: Actual Values Scatter Plot (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
     plt.ylabel("Rating")
+    plt.ylim(3, 5)
     plt.legend()
     plt.grid(True, alpha=0.3)
     
@@ -607,16 +798,21 @@ def create_graph_40(df):
     installs_threshold = df['Installs'].quantile(0.95)
     df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Installs'] <= installs_threshold)]
     
-    X = df_filtered[['Reviews', 'Installs']].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    df_filtered_copy['Installs'] = np.log1p(df_filtered_copy['Installs'])
+    
+    X = df_filtered_copy[['Reviews', 'Installs']].values
     kmeans = KMeans(n_clusters=3, random_state=42)
     clusters = kmeans.fit_predict(X)
     
     plt.scatter(X[:, 0], X[:, 1], c=clusters, cmap='viridis', alpha=0.6)
     plt.scatter(kmeans.cluster_centers_[:, 0], kmeans.cluster_centers_[:, 1], 
                c='red', marker='x', s=200, linewidths=3, label='Centroids')
-    plt.title("Graph 40: KMeans Clustering")
-    plt.xlabel("Reviews")
-    plt.ylabel("Installs")
+    plt.title("Graph 40: KMeans Clustering (Log Normalized)")
+    plt.xlabel("Reviews (Log Normalized)")
+    plt.ylabel("Installs (Log Normalized)")
     plt.legend()
     plt.grid(True, alpha=0.3)
     
@@ -627,17 +823,21 @@ def create_graph_40(df):
 def create_graph_41(df):
     plt.figure(figsize=(8, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
     
-    X = df_filtered[['Reviews']].values
-    y = df_filtered['Rating'].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    
+    X = df_filtered_copy[['Reviews']].values
+    y = df_filtered_copy['Rating'].values
     
     model = LinearRegression()
     model.fit(X, y)
     y_pred = model.predict(X)
     
     plt.hist(y_pred, bins=20, alpha=0.7, color='orange', edgecolor='black')
-    plt.title("Graph 41: Prediction Distribution")
+    plt.title("Graph 41: Prediction Distribution (Log Normalized)")
     plt.xlabel("Predicted Rating")
     plt.ylabel("Frequency")
     plt.grid(True, alpha=0.3)
@@ -649,17 +849,21 @@ def create_graph_41(df):
 def create_graph_42(df):
     plt.figure(figsize=(10, 6))
     reviews_threshold = df['Reviews'].quantile(0.95)
-    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    df_filtered = df[(df['Reviews'] <= reviews_threshold) & (df['Rating'] >= 3) & (df['Rating'] <= 5)]
     
-    X = df_filtered[['Reviews']].values
-    y = df_filtered['Rating'].values
+    # Apply log normalization to handle large values
+    df_filtered_copy = df_filtered.copy()
+    df_filtered_copy['Reviews'] = np.log1p(df_filtered_copy['Reviews'])
+    
+    X = df_filtered_copy[['Reviews']].values
+    y = df_filtered_copy['Rating'].values
     
     model = LinearRegression()
     model.fit(X, y)
     y_pred = model.predict(X)
     
     plt.plot(y_pred[:50], color='blue', linewidth=2, marker='o')
-    plt.title("Graph 42: Prediction Trend")
+    plt.title("Graph 42: Prediction Trend (Log Normalized)")
     plt.xlabel("Index")
     plt.ylabel("Predicted Rating")
     plt.grid(True, alpha=0.3)

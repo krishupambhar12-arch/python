@@ -112,11 +112,9 @@ function navigateUnivariateGraph(direction) {
 }
 
 function updateUnivariateButtons() {
-    const prevBtn = document.getElementById('univariate-prev-btn');
-    const nextBtn = document.getElementById('univariate-next-btn');
-    
-    prevBtn.disabled = currentUnivariateGraph === 1;
-    nextBtn.disabled = currentUnivariateGraph === totalUnivariateGraphs;
+    // Since buttons no longer have unique IDs, we'll manage state without disabling them
+    // The navigation logic will handle the circular navigation
+    console.log(`Current univariate graph: ${currentUnivariateGraph} of ${totalUnivariateGraphs}`);
 }
 
 // ==================== BIVARIATE GRAPH NAVIGATION ====================
@@ -143,11 +141,9 @@ function navigateBivariateGraph(direction) {
 }
 
 function updateBivariateButtons() {
-    const prevBtn = document.getElementById('bivariate-prev-btn');
-    const nextBtn = document.getElementById('bivariate-next-btn');
-    
-    prevBtn.disabled = currentBivariateGraph === 16;
-    nextBtn.disabled = currentBivariateGraph === 29;
+    // Since buttons no longer have unique IDs, we'll manage state without disabling them
+    // The navigation logic will handle the circular navigation
+    console.log(`Current bivariate graph: ${currentBivariateGraph} of ${totalBivariateGraphs}`);
 }
 
 // ==================== DISTRIBUTION GRAPH NAVIGATION ====================
@@ -174,11 +170,9 @@ function navigateDistributionGraph(direction) {
 }
 
 function updateDistributionButtons() {
-    const prevBtn = document.getElementById('distribution-prev-btn');
-    const nextBtn = document.getElementById('distribution-next-btn');
-    
-    prevBtn.disabled = currentDistributionGraph === 30;
-    nextBtn.disabled = currentDistributionGraph === 33;
+    // Since buttons no longer have unique IDs, we'll manage state without disabling them
+    // The navigation logic will handle the circular navigation
+    console.log(`Current distribution graph: ${currentDistributionGraph} of ${totalDistributionGraphs}`);
 }
 
 // ==================== CORRELATION GRAPH NAVIGATION ====================
@@ -205,11 +199,9 @@ function navigateCorrelationGraph(direction) {
 }
 
 function updateCorrelationButtons() {
-    const prevBtn = document.getElementById('correlation-prev-btn');
-    const nextBtn = document.getElementById('correlation-next-btn');
-    
-    prevBtn.disabled = currentCorrelationGraph === 34;
-    nextBtn.disabled = currentCorrelationGraph === 36;
+    // Since buttons no longer have unique IDs, we'll manage state without disabling them
+    // The navigation logic will handle the circular navigation
+    console.log(`Current correlation graph: ${currentCorrelationGraph} of ${totalCorrelationGraphs}`);
 }
 
 // ==================== MACHINE LEARNING GRAPH NAVIGATION ====================
@@ -236,11 +228,9 @@ function navigateMLGraph(direction) {
 }
 
 function updateMLButtons() {
-    const prevBtn = document.getElementById('machine-learning-prev-btn');
-    const nextBtn = document.getElementById('machine-learning-next-btn');
-    
-    prevBtn.disabled = currentMLGraph === 37;
-    nextBtn.disabled = currentMLGraph === 42;
+    // Since buttons no longer have unique IDs, we'll manage state without disabling them
+    // The navigation logic will handle the circular navigation
+    console.log(`Current ML graph: ${currentMLGraph} of ${totalMLGraphs}`);
 }
 
 // ==================== DATA LOADING ====================
@@ -264,8 +254,6 @@ function loadAndProcessData() {
     updateCorrelationButtons();
     updateMLButtons();
     
-    // Add keyboard navigation support
-    setupKeyboardNavigation();
 }
 
 function updateDashboardStats(data) {
