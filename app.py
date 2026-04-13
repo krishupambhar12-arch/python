@@ -7,8 +7,10 @@ import io
 import base64
 import os
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.cluster import KMeans
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import mean_squared_error, r2_score, accuracy_score, classification_report
 
 app = Flask(__name__)
 
@@ -103,8 +105,17 @@ def load_and_process_data():
             print(f"  Sample values: {list(unique_vals[:5])}...")
     
     print("\n" + "=" * 60)
-    print("DATA CLEANING STARTED...")
+    print("TASK 3: HANDLING MISSING DATA AND OUTLIERS")
     print("=" * 60)
+    
+    # TASK 1: IDENTIFY MISSING VALUES
+    print("\n1. IDENTIFY MISSING VALUES:")
+    print("Missing values before cleaning:")
+    print(df.isnull().sum())
+    
+    # TASK 2: HANDLE MISSING VALUES USING MEDIAN/MODE
+    print("\n2. HANDLE MISSING VALUES USING MEDIAN/MODE:")
+    print("Applying median imputation for numeric columns...")
     
     # Data cleaning (same as p1.py)
     df["Rating"] = pd.to_numeric(df["Rating"], errors="coerce")
@@ -118,10 +129,27 @@ def load_and_process_data():
     df["Price"] = df["Price"].str.replace("$","",regex=False)
     df["Price"] = pd.to_numeric(df["Price"], errors="coerce")
     
+    # Handle missing values
     df["Rating"].fillna(df["Rating"].median(), inplace=True)
     df["Reviews"].fillna(df["Reviews"].median(), inplace=True)
     df["Installs"].fillna(df["Installs"].median(), inplace=True)
     df["Price"].fillna(0, inplace=True)  # Fill missing prices with 0
+    
+    print("✓ Missing values handled using median (and 0 for Price)")
+    
+    # TASK 3: DETECT OUTLIERS USING BOXPLOTS & 95TH PERCENTILE METHOD
+    print("\n3. DETECT OUTLIERS USING BOXPLOTS & 95TH PERCENTILE METHOD:")
+    print("Outlier detection thresholds calculated:")
+    
+    # Calculate outlier thresholds (will be used in graphs)
+    rating_threshold = df['Rating'].quantile(0.95)
+    reviews_threshold = df['Reviews'].quantile(0.95)
+    installs_threshold = df['Installs'].quantile(0.95)
+    
+    print(f"  Rating threshold (95th percentile): {rating_threshold:.2f}")
+    print(f"  Reviews threshold (95th percentile): {reviews_threshold:.0f}")
+    print(f"  Installs threshold (95th percentile): {installs_threshold:.0f}")
+    print("✓ Outlier thresholds calculated for boxplot generation")
     
     print("\nData types after cleaning:")
     print(df.dtypes)
@@ -131,6 +159,264 @@ def load_and_process_data():
     
     print("\n" + "=" * 60)
     print("DATA CLEANING COMPLETED!")
+    print("=" * 60)
+    
+    # TASK 4: SPREAD OF DATA - STATISTICAL ANALYSIS
+    print("\n" + "=" * 60)
+    print("TASK 4: SPREAD OF DATA - STATISTICAL ANALYSIS")
+    print("=" * 60)
+    
+    print("\n1. DATA DISTRIBUTION ANALYSIS:")
+    print("Checking normal vs skewed distribution...")
+    
+    # Get numeric columns for analysis
+    numeric_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    print(f"Numeric columns for analysis: {numeric_cols}")
+    
+    print("\n2. STATISTICAL MEASURES:")
+    print("Calculating mean, median, std, skewness, kurtosis...")
+    
+    for col in numeric_cols:
+        print(f"\n{'='*40}")
+        print(f"ANALYSIS FOR: {col.upper()}")
+        print(f"{'='*40}")
+        
+        # Basic statistics
+        mean_val = df[col].mean()
+        median_val = df[col].median()
+        std_val = df[col].std()
+        min_val = df[col].min()
+        max_val = df[col].max()
+        
+        # Distribution measures
+        skewness_val = df[col].skew()
+        kurtosis_val = df[col].kurtosis()
+        
+        print(f"Mean: {mean_val:.2f}")
+        print(f"Median: {median_val:.2f}")
+        print(f"Standard Deviation: {std_val:.2f}")
+        print(f"Minimum: {min_val:.2f}")
+        print(f"Maximum: {max_val:.2f}")
+        print(f"Skewness: {skewness_val:.2f}")
+        print(f"Kurtosis: {kurtosis_val:.2f}")
+        
+        # INTERPRETATION
+        print(f"\n3. INTERPRETATION:")
+        
+        # Distribution type
+        if abs(skewness_val) < 0.5:
+            distribution_type = "Approximately Normal"
+        elif skewness_val > 0.5:
+            distribution_type = "Right (Positively) Skewed"
+        else:
+            distribution_type = "Left (Negatively) Skewed"
+        
+        print(f"Distribution Type: {distribution_type}")
+        
+        # Skewness interpretation
+        if skewness_val > 1:
+            skew_interpretation = "Highly positively skewed (long right tail)"
+        elif skewness_val > 0.5:
+            skew_interpretation = "Moderately positively skewed"
+        elif skewness_val < -1:
+            skew_interpretation = "Highly negatively skewed (long left tail)"
+        elif skewness_val < -0.5:
+            skew_interpretation = "Moderately negatively skewed"
+        else:
+            skew_interpretation = "Approximately symmetric"
+        
+        print(f"Skewness Interpretation: {skew_interpretation}")
+        
+        # Kurtosis interpretation
+        if kurtosis_val > 3:
+            kurtosis_interpretation = "Leptokurtic (heavy tails, sharp peak)"
+        elif kurtosis_val < 3:
+            kurtosis_interpretation = "Platykurtic (light tails, flat peak)"
+        else:
+            kurtosis_interpretation = "Mesokurtic (normal distribution tails)"
+        
+        print(f"Kurtosis Interpretation: {kurtosis_interpretation}")
+        
+        # Mean vs Median comparison
+        if abs(mean_val - median_val) < (0.1 * median_val):
+            mean_median_relation = "Mean ≈ Median (symmetric distribution)"
+        elif mean_val > median_val:
+            mean_median_relation = "Mean > Median (right skewness confirmed)"
+        else:
+            mean_median_relation = "Mean < Median (left skewness confirmed)"
+        
+        print(f"Mean vs Median: {mean_median_relation}")
+        
+        # Data spread
+        cv = (std_val / mean_val) * 100 if mean_val != 0 else 0
+        if cv < 15:
+            spread = "Low variability (consistent data)"
+        elif cv < 30:
+            spread = "Moderate variability"
+        else:
+            spread = "High variability (diverse data)"
+        
+        print(f"Coefficient of Variation: {cv:.1f}% - {spread}")
+        
+        # Outlier indication
+        q1 = df[col].quantile(0.25)
+        q3 = df[col].quantile(0.75)
+        iqr = q3 - q1
+        lower_bound = q1 - 1.5 * iqr
+        upper_bound = q3 + 1.5 * iqr
+        outliers = df[(df[col] < lower_bound) | (df[col] > upper_bound)][col]
+        
+        print(f"Outliers detected: {len(outliers)} values ({(len(outliers)/len(df)*100):.1f}%)")
+        
+        print(f"{'='*40}")
+    
+    print("\n" + "=" * 60)
+    print("STATISTICAL ANALYSIS COMPLETED!")
+    print("=" * 60)
+    
+    # TASK 7: SUPERVISED LEARNING – REGRESSION MODEL
+    print("\n" + "=" * 60)
+    print("TASK 7: SUPERVISED LEARNING – REGRESSION MODEL")
+    print("=" * 60)
+    
+    print("\n1. DATASET SPLITTING:")
+    print("Splitting dataset into training, validation, and testing sets...")
+    
+    # Prepare features and target
+    features = ['Reviews', 'Installs', 'Price']
+    target = 'Rating'
+    
+    # Remove outliers and prepare data
+    df_clean = df[(df['Reviews'] > 0) & (df['Installs'] > 0) & (df['Rating'] >= 1) & (df['Rating'] <= 5)]
+    X = df_clean[features]
+    y = df_clean[target]
+    
+    # Log transform skewed features
+    X_log = X.copy()
+    X_log['Reviews'] = np.log1p(X_log['Reviews'])
+    X_log['Installs'] = np.log1p(X_log['Installs'])
+    X_log['Price'] = np.log1p(X_log['Price'])
+    
+    # First split: 80% train+val, 20% test
+    X_train_val, X_test, y_train_val, y_test = train_test_split(
+        X_log, y, test_size=0.2, random_state=42
+    )
+    
+    # Second split: 75% train, 25% val (of train+val)
+    X_train, X_val, y_train, y_val = train_test_split(
+        X_train_val, y_train_val, test_size=0.25, random_state=42
+    )
+    
+    print(f"Training set: {X_train.shape[0]} samples ({len(X_train)/len(df)*100:.1f}%)")
+    print(f"Validation set: {X_val.shape[0]} samples ({len(X_val)/len(df)*100:.1f}%)")
+    print(f"Testing set: {X_test.shape[0]} samples ({len(X_test)/len(df)*100:.1f}%)")
+    
+    print("\n2. EXPLAINING OVERFITTING & UNDERFITTING:")
+    print("• Overfitting: Model learns training data too well, performs poorly on new data")
+    print("• Underfitting: Model is too simple, fails to capture underlying patterns")
+    print("• Good fit: Model balances bias and variance, generalizes well")
+    
+    print("\n3. (i) SIMPLE LINEAR REGRESSION MODEL:")
+    print("Building Simple Linear Regression (Reviews → Rating)...")
+    
+    # Simple Linear Regression
+    X_simple = X_train[['Reviews']].values
+    y_simple = y_train.values
+    
+    simple_model = LinearRegression()
+    simple_model.fit(X_simple, y_simple)
+    
+    # Validate simple model
+    y_val_pred_simple = simple_model.predict(X_val[['Reviews']].values)
+    simple_mse = mean_squared_error(y_val, y_val_pred_simple)
+    simple_r2 = r2_score(y_val, y_val_pred_simple)
+    
+    print(f"Simple Linear Regression Results:")
+    print(f"  Coefficient: {simple_model.coef_[0]:.6f}")
+    print(f"  Intercept: {simple_model.intercept_:.4f}")
+    print(f"  Validation MSE: {simple_mse:.4f}")
+    print(f"  Validation R²: {simple_r2:.4f}")
+    
+    print("\n4. (ii) MULTIPLE LINEAR REGRESSION MODEL:")
+    print("Building Multiple Linear Regression (Reviews, Installs, Price → Rating)...")
+    
+    # Multiple Linear Regression
+    multi_model = LinearRegression()
+    multi_model.fit(X_train, y_train)
+    
+    # Validate multi model
+    y_val_pred_multi = multi_model.predict(X_val)
+    multi_mse = mean_squared_error(y_val, y_val_pred_multi)
+    multi_r2 = r2_score(y_val, y_val_pred_multi)
+    
+    print(f"Multiple Linear Regression Results:")
+    print(f"  Coefficients:")
+    for i, feature in enumerate(features):
+        print(f"    {feature}: {multi_model.coef_[i]:.6f}")
+    print(f"  Intercept: {multi_model.intercept_:.4f}")
+    print(f"  Validation MSE: {multi_mse:.4f}")
+    print(f"  Validation R²: {multi_r2:.4f}")
+    
+    print("\n5. (iii) LOGISTIC REGRESSION MODEL:")
+    print("Building Logistic Regression (predicting high/low rating)...")
+    
+    # Create binary target for logistic regression
+    y_binary = (y >= 4.0).astype(int)  # 1 if rating >= 4.0, else 0
+    
+    # Split binary data
+    X_train_bin, X_test_bin, y_train_bin, y_test_bin = train_test_split(
+        X_log, y_binary, test_size=0.2, random_state=42
+    )
+    
+    # Logistic Regression
+    logistic_model = LogisticRegression(random_state=42, max_iter=1000)
+    logistic_model.fit(X_train_bin, y_train_bin)
+    
+    # Test logistic model
+    y_test_pred_log = logistic_model.predict(X_test_bin)
+    logistic_accuracy = accuracy_score(y_test_bin, y_test_pred_log)
+    
+    print(f"Logistic Regression Results:")
+    print(f"  Accuracy: {logistic_accuracy:.4f} ({logistic_accuracy*100:.2f}%)")
+    print(f"  Classification Report:")
+    print(classification_report(y_test_bin, y_test_pred_log))
+    
+    print("\n6. FINAL MODEL TESTING:")
+    print("Testing final models on test data...")
+    
+    # Test Simple Linear Regression
+    y_test_pred_simple = simple_model.predict(X_test[['Reviews']].values)
+    test_mse_simple = mean_squared_error(y_test, y_test_pred_simple)
+    test_r2_simple = r2_score(y_test, y_test_pred_simple)
+    
+    # Test Multiple Linear Regression
+    y_test_pred_multi = multi_model.predict(X_test)
+    test_mse_multi = mean_squared_error(y_test, y_test_pred_multi)
+    test_r2_multi = r2_score(y_test, y_test_pred_multi)
+    
+    print(f"\nFinal Test Results:")
+    print(f"Simple Linear Regression:")
+    print(f"  Test MSE: {test_mse_simple:.4f}")
+    print(f"  Test R²: {test_r2_simple:.4f}")
+    
+    print(f"\nMultiple Linear Regression:")
+    print(f"  Test MSE: {test_mse_multi:.4f}")
+    print(f"  Test R²: {test_r2_multi:.4f}")
+    
+    # Model comparison
+    print(f"\n7. MODEL COMPARISON:")
+    if test_r2_multi > test_r2_simple:
+        print("✓ Multiple Linear Regression performs better")
+        best_model = "Multiple Linear Regression"
+    else:
+        print("✓ Simple Linear Regression performs better")
+        best_model = "Simple Linear Regression"
+    
+    print(f"Best performing model: {best_model}")
+    print(f"Logistic Regression Accuracy: {logistic_accuracy*100:.2f}%")
+    
+    print("\n" + "=" * 60)
+    print("SUPERVISED LEARNING COMPLETED!")
     print("=" * 60)
     
     return df

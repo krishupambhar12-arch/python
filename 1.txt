@@ -176,4 +176,196 @@ Aa project ma Google Play Store dataset par complete analysis ane visualization 
 
 
 
+ Pandas Functions (19):
+info() - Dataset information
+isnull() - Missing values detection
+fillna() - Handle missing values
+mean() - Calculate mean
+median() - Calculate median
+std() - Standard deviation
+min() - Minimum value
+max() - Maximum value
+skew() - Skewness calculation
+kurtosis() - Kurtosis calculation
+quantile() - Percentile calculation
+value_counts() - Frequency counts
+nunique() - Unique values count
+sum() - Sum calculation
+corr() - Correlation analysis
+to_numeric() - Data type conversion
+groupby() - Group data
+head() - First rows
+isin() - Filter values
+🔢 NumPy Functions (3):
+log1p() - Log transformation
+array operations (implicit)
+Mathematical calculations
+📈 Usage Distribution:
+Data Exploration: info(), isnull(), nunique(), value_counts()
+Statistical Analysis: mean(), median(), std(), skew(), kurtosis(), corr()
+Data Cleaning: fillna(), to_numeric(), quantile()
+Data Transformation: log1p(), groupby(), mean()
+Data Filtering: isin(), head(), min(), max()
+Total: 22 functions extensively used across EDA automation!
 
+
+ 
+
+📊 Data Splitting & Usage:
+1. Train a regression model using training data:
+python
+# Simple Linear Regression
+simple_model = LinearRegression()
+simple_model.fit(X_simple, y_simple)  # Using X_train, y_train
+ 
+# Multiple Linear Regression  
+multi_model = LinearRegression()
+multi_model.fit(X_train, y_train)  # Using X_train, y_train
+ 
+# Logistic Regression
+logistic_model = LogisticRegression(random_state=42, max_iter=1000)
+logistic_model.fit(X_train_bin, y_train_bin)  # Using X_train_bin, y_train_bin
+2. Validate model performance using validation data:
+python
+# Validate Simple Model
+y_val_pred_simple = simple_model.predict(X_val[['Reviews']].values)
+simple_mse = mean_squared_error(y_val, y_val_pred_simple)  # Using X_val, y_val
+ 
+# Validate Multiple Model
+y_val_pred_multi = multi_model.predict(X_val)
+multi_mse = mean_squared_error(y_val, y_val_pred_multi)  # Using X_val, y_val
+3. Test final model on test data:
+python
+# Test Simple Linear Regression
+y_test_pred_simple = simple_model.predict(X_test[['Reviews']].values)
+test_mse_simple = mean_squared_error(y_test, y_test_pred_simple)  # Using X_test, y_test
+ 
+# Test Multiple Linear Regression
+y_test_pred_multi = multi_model.predict(X_test)
+test_mse_multi = mean_squared_error(y_test, y_test_pred_multi)  # Using X_test, y_test
+🎯 Data Split Ratios:
+Training: 60% (X_train, y_train)
+Validation: 20% (X_val, y_val)
+Testing: 20% (X_test, y_test)
+Conclusion: Proper ML workflow follow thay chhe - Train → Validate → Test! ✅
+
+
+Data Visualization Types in app.py:
+
+📊 Univariate Analysis Plots (15):
+Distribution Plots:
+Rating Histogram - Rating distribution
+Reviews Histogram - Reviews distribution (normalized)
+Installs Histogram - Installs distribution (normalized)
+Box Plots:
+Rating Boxplot - Rating spread & outliers
+Reviews Boxplot - Reviews spread (log normalized)
+Installs Boxplot - Installs spread (log normalized)
+Categorical Plots:
+Category Bar Chart - App categories count
+Free vs Paid Pie Chart - App type distribution
+Content Rating Bar Chart - Age rating distribution
+Line & Density Plots:
+Sorted Rating Line Graph - Rating trend
+Rating KDE Plot - Rating density
+Reviews KDE Plot - Reviews density (log normalized)
+Sample Plots:
+First 20 Ratings Bar Chart - Sample ratings
+First 20 Reviews Bar Chart - Sample reviews
+First 20 Installs Bar Chart - Sample installs
+📈 Bivariate Analysis Plots (14):
+Scatter Plots:
+Reviews vs Rating Scatter Plot
+Installs vs Rating Scatter Plot
+Installs vs Reviews Scatter Plot
+Average Rating by Category
+Rating by Type Boxplot
+Reviews by Type Boxplot
+Installs by Type Boxplot
+Advanced Plots:
+Hexbin Plot - 2D density
+2D Histogram - Bivariate distribution
+Seaborn Scatter Plot - Enhanced scatter
+Installs vs Rating Scatter (filtered)
+Installs vs Reviews Scatter (filtered)
+Regression Plots:
+Regression Reviews vs Rating - Linear regression line
+Regression Installs vs Rating - Linear regression line
+📉 Distribution Analysis Plots (4):
+Rating Distribution
+Reviews Distribution
+Installs Distribution
+Rating Boxplot (alternative)
+🔗 Correlation Analysis Plots (3):
+Correlation Heatmap - Feature correlations
+Pairplot - All pairwise relationships
+Correlation Matrix - Numerical correlation
+🤖 Machine Learning Plots (6):
+Linear Regression - Model fit visualization
+Prediction Scatter Plot - Predictions vs actual
+Actual Values Scatter Plot - Ground truth
+KMeans Clustering - Cluster visualization
+Prediction Distribution - Prediction spread
+Prediction Trend - Prediction pattern
+📊 Total: 42 Graphs
+Univariate: 15 plots
+Bivariate: 14 plots
+Distribution: 4 plots
+Correlation: 3 plots
+Machine Learning: 6 plots
+Feedback submitted
+
+
+
+Data normalization plots (Normal distribution, skewness)
+
+aa rite che and kela?
+
+Data normalization plots (Normal distribution, skewness) YES implement che!
+
+✅ Available Normalization & Distribution Analysis:
+1. Statistical Analysis (Terminal Output):
+python
+# Distribution measures
+skewness_val = df[col].skew()
+kurtosis_val = df[col].kurtosis()
+ 
+# Distribution type classification
+if abs(skewness_val) < 0.5:
+    distribution_type = "Approximately Normal"
+elif skewness_val > 0.5:
+    distribution_type = "Right (Positively) Skewed"
+else:
+    distribution_type = "Left (Negatively) Skewed"
+2. Log Normalization Plots:
+Histograms with Normalization:
+Graph 2: Reviews Histogram (Normalized 0-5)
+Graph 3: Installs Histogram (Normalized 0-5)
+Boxplots with Normalization:
+Graph 5: Reviews Boxplot (Log Normalized)
+Graph 6: Installs Boxplot (Log Normalized)
+KDE Plots with Normalization:
+Graph 12: Reviews KDE (Log Normalized)
+Bar Charts with Normalization:
+Graph 14: First 20 Reviews (Log Normalized)
+Graph 15: First 20 Installs (Log Normalized)
+3. Distribution Analysis Section (Graphs 30-33):
+Graph 30: Rating Distribution (Seaborn with KDE)
+Graph 31: Reviews Distribution (Log Normalized)
+Graph 32: Installs Distribution (Log Normalized)
+Graph 33: Rating Boxplot (alternative)
+4. Normalization Method Used:
+python
+# Log normalization for skewed data
+normalized_reviews = np.log1p(reviews_data)  # log1p handles log(0)
+normalized_installs = np.log1p(installs_data)
+ 
+# Scale to 0-5 range
+scaled_reviews = (normalized_reviews / max_normalized) * 5
+📊 What's Available:
+✅ Normal vs Skewed distribution analysis
+✅ Skewness calculation & interpretation
+✅ Log normalization for skewed data
+✅ Distribution plots with normalization
+✅ KDE overlays for distribution shape
+Conclusion: Complete data normalization and distribution analysis implemented! 🎯
