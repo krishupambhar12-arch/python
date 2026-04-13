@@ -16,6 +16,96 @@ app = Flask(__name__)
 def load_and_process_data():
     df = pd.read_csv("google_play_store.csv")
     
+    # Dataset Exploration - Terminal Output
+    print("=" * 60)
+    print("TASK 1: DATA UNDERSTANDING")
+    print("=" * 60)
+    
+    print("\nFirst 5 rows:")
+    print(df.head())
+    
+    print("\nLast 5 rows:")
+    print(df.tail())
+    
+    print(f"\nDataset Shape: {df.shape}")
+    print(f"Rows: {df.shape[0]}, Columns: {df.shape[1]}")
+    
+    print(f"\nColumn Names:")
+    for i, col in enumerate(df.columns, 1):
+        print(f"{i}. {col}")
+    
+    print(f"\nData Types:")
+    print(df.dtypes)
+    
+    print(f"\nDataset Info:")
+    df.info()
+    
+    print("\n" + "=" * 60)
+    print("QUANTITATIVE & QUALITATIVE VARIABLES")
+    print("=" * 60)
+    
+    # Identify Quantitative Variables (Discrete & Continuous)
+    print("\nQUANTITATIVE VARIABLES (Numeric Data):")
+    quantitative_cols = df.select_dtypes(include=[np.number]).columns.tolist()
+    print(f"Total Quantitative Variables: {len(quantitative_cols)}")
+    
+    discrete_vars = []
+    continuous_vars = []
+    
+    for col in quantitative_cols:
+        unique_count = df[col].nunique()
+        if unique_count < 20:  # Generally discrete if less than 20 unique values
+            discrete_vars.append(col)
+        else:
+            continuous_vars.append(col)
+    
+    print(f"\nDiscrete Variables (Countable): {len(discrete_vars)}")
+    for i, var in enumerate(discrete_vars, 1):
+        print(f"  {i}. {var}")
+    
+    print(f"\nContinuous Variables (Measurable): {len(continuous_vars)}")
+    for i, var in enumerate(continuous_vars, 1):
+        print(f"  {i}. {var}")
+    
+    # Identify Qualitative Variables (Nominal & Ordinal)
+    print("\nQUALITATIVE VARIABLES (Categorical Data):")
+    qualitative_cols = df.select_dtypes(include=['object']).columns.tolist()
+    print(f"Total Qualitative Variables: {len(qualitative_cols)}")
+    
+    nominal_vars = []
+    ordinal_vars = []
+    
+    for col in qualitative_cols:
+        # Check if column might be ordinal (has natural order)
+        if col.lower() in ['content rating', 'rating', 'size', 'version']:
+            ordinal_vars.append(col)
+        else:
+            nominal_vars.append(col)
+    
+    print(f"\nNominal Variables (No Order): {len(nominal_vars)}")
+    for i, var in enumerate(nominal_vars, 1):
+        print(f"  {i}. {var}")
+    
+    print(f"\nOrdinal Variables (Has Order): {len(ordinal_vars)}")
+    for i, var in enumerate(ordinal_vars, 1):
+        print(f"  {i}. {var}")
+    
+    # Show unique values for categorical variables
+    print(f"\nUNIQUE VALUES FOR QUALITATIVE VARIABLES:")
+    for col in qualitative_cols[:5]:  # Show first 5 to avoid too much output
+        unique_vals = df[col].unique()
+        print(f"\n{col}:")
+        if len(unique_vals) <= 10:
+            for val in unique_vals:
+                print(f"  - {val}")
+        else:
+            print(f"  Total unique values: {len(unique_vals)}")
+            print(f"  Sample values: {list(unique_vals[:5])}...")
+    
+    print("\n" + "=" * 60)
+    print("DATA CLEANING STARTED...")
+    print("=" * 60)
+    
     # Data cleaning (same as p1.py)
     df["Rating"] = pd.to_numeric(df["Rating"], errors="coerce")
     df["Reviews"] = pd.to_numeric(df["Reviews"], errors="coerce")
@@ -32,6 +122,16 @@ def load_and_process_data():
     df["Reviews"].fillna(df["Reviews"].median(), inplace=True)
     df["Installs"].fillna(df["Installs"].median(), inplace=True)
     df["Price"].fillna(0, inplace=True)  # Fill missing prices with 0
+    
+    print("\nData types after cleaning:")
+    print(df.dtypes)
+    
+    print("\nMissing values after cleaning:")
+    print(df.isnull().sum())
+    
+    print("\n" + "=" * 60)
+    print("DATA CLEANING COMPLETED!")
+    print("=" * 60)
     
     return df
 

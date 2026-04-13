@@ -1,7 +1,6 @@
 python app.py
 
 
-
 Genres means શૈલીઓ or પ્રકાર in Gujarati.
 
 📱 Google Play Store - Genres Explained:
@@ -36,3 +35,145 @@ Market Analysis: Shows which app types are popular
 Competition: Identifies crowded vs niche markets
 Trends: Reveals emerging app categories
 Genres = App sub-categories that describe what the app actually does! 🎯📱✨
+
+
+
+Aa dataset ma Google Play Store ni applications related data hoy che jem ke rating reviews installs price category ane content rating jevi mahiti shamel che. Aa dataset thi apps ni popularity ane performance samajva ma madad male che.
+
+
+Project Objectives
+
+Aa project no main goal Google Play Store na data par analysis karvo ane visualization generate karvo che.
+
+Students aa project thi niche ni vastu shikhe che
+
+Data cleaning ane preprocessing
+Exploratory Data Analysis karvu
+Graphs ane visualization create karvu
+Regression ane clustering jeva ML concepts samajva
+Dashboard statistics generate karva
+
+Python Tools and Libraries Used
+
+Python 3
+Pandas
+NumPy
+Matplotlib
+Seaborn
+Scikit learn
+Flask
+
+Project Tasks
+Task 1 Data Understanding
+
+Dataset ne Pandas thi load karvama aave che
+Columns jem ke Rating Reviews Installs Price ne numeric format ma convert karvama aave che
+Missing values ne median athva zero thi fill karvama aave che
+
+Aa process function ma define che
+load_and_process_data
+
+Task 2 Exploratory Data Analysis
+
+Univariate Analysis
+
+Rating histogram
+Reviews histogram
+Installs histogram
+Boxplots
+
+Bivariate Analysis
+
+Reviews vs Rating
+Installs vs Rating
+Installs vs Reviews
+
+Multivariate Analysis
+
+Category wise analysis
+Content rating distribution
+Correlation heatmap
+
+Total 42 graphs generate thay che system ma
+
+Task 3 Handling Missing Data and Outliers
+
+Missing values ne median thi replace karvama aave che
+
+Outliers remove karva mate 95 percentile no use thay che
+
+Log normalization pan use thay che large values ne handle karva mate
+
+Task 4 Data Distribution
+
+Histogram ane KDE plots thi data distribution check karvama aave che
+
+Skewed data ne normalize karva log function use thay che
+
+Task 5 Automating EDA
+
+Multiple reusable graph functions banavela che
+
+Total 42 automated graphs generate thay che using loop function generate_all_graphs
+
+Task 6 Regression Analysis
+
+Linear Regression use kari ne Rating predict karvama aave che based on Reviews
+
+Model training ane prediction visualization pan banavel che
+
+Task 7 Machine Learning
+
+Linear Regression model implement karel che
+
+KMeans clustering pan use thay che data grouping mate
+
+Task 8 Visualization
+
+Different types na graphs generate thay che
+
+Histogram
+Boxplot
+Scatter plot
+Bar chart
+Pie chart
+Heatmap
+Pairplot
+Regression plot
+
+Flask Application
+
+Aa project ma Flask web application pan banavel che
+
+Routes
+
+Home page render kare che
+Graphs serve kare che
+API endpoint thi graphs generate kare che
+Dashboard stats provide kare che
+
+Model Evaluation
+
+Dataset statistics calculate thay che
+
+Average rating
+Total installs
+Total reviews
+Category distribution
+Rating statistics jem ke mean median std
+
+Expected Outcomes
+
+Complete EDA perform karva
+Data visualization samajva
+Machine learning basics implement karva
+Real world dataset sathe kaam karva
+
+Conclusion
+
+Aa project ma Google Play Store dataset par complete analysis ane visualization perform karvama aavyu che. Data cleaning thi lai ne machine learning sudhi na badha steps implement karaya che. Flask application dwara aa results ne interactive rite display pan kari shakay che.
+
+
+
+
+
