@@ -1,6 +1,91 @@
 python app.py
 
 
+
+Graphs:
+
+Graph 1 → Rating Histogram
+Graph 2 → Reviews Histogram
+Graph 3 → Installs Histogram
+Graph 4 → Rating Boxplot
+Graph 5 → Reviews Boxplot
+Graph 6 → Installs Boxplot
+Graph 7 → Category Bar Chart
+Graph 8 → Free vs Paid Pie Chart
+Graph 9 → Content Rating Bar Chart
+Graph 10 → Sorted Rating Line Graph
+Graph 11 → Rating KDE   KDE Plot che (Kernel Density Estimation)
+Graph 12 → Reviews KDE
+Graph 13 → First 20 Ratings
+Graph 14 → First 20 Reviews
+Graph 15 → First 20 Installs
+
+👉 Topic: Univariate Analysis ✔
+
+Graphs:
+
+Graph 16 → Reviews vs Rating
+Graph 17 → Installs vs Rating
+Graph 18 → Installs vs Reviews
+Graph 19 → Avg Rating by Category
+Graph 20 → Rating vs Type (Boxplot)
+Graph 21 → Reviews vs Type
+Graph 22 → Installs vs Type
+Graph 23 → Hexbin Plot
+Graph 24 → 2D Histogram
+Graph 25 → Seaborn Scatter
+Graph 26 → Installs vs Rating
+Graph 27 → Installs vs Reviews
+Graph 28 → Regression (Reviews vs Rating)
+Graph 29 → Regression (Installs vs Rating)
+
+👉 Topic: Bivariate Analysis ✔
+
+Graphs:
+
+Graph 34 → Correlation Heatmap
+Graph 35 → Pairplot
+Graph 36 → Correlation Matrix
+
+👉 Topic: Multivariate Analysis ✔
+
+
+Graphs:
+
+Graph 30 → Rating Distribution
+Graph 31 → Reviews Distribution
+Graph 32 → Installs Distribution
+Graph 33 → Rating Boxplot
+
+👉 Topic:
+
+Normal / Skewed Distribution ✔
+Spread of Data ✔
+Outliers ✔
+
+
+
+Graphs:
+
+Graph 37 → Linear Regression
+Graph 38 → Prediction Scatter
+Graph 39 → Actual vs Predicted
+
+👉 Topic: Regression ✔
+
+
+Graphs:
+
+Graph 40 → KMeans Clustering
+Graph 41 → Prediction Distribution
+Graph 42 → Prediction Trend
+
+👉 Topic:
+
+Supervised Learning ✔
+Unsupervised Learning (KMeans) ✔
+
+
 Genres means શૈલીઓ or પ્રકાર in Gujarati.
 
 📱 Google Play Store - Genres Explained:
